@@ -1,0 +1,203 @@
+<title>Personitas mejoradas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* Layout: a casting sheet. Each version opens with the full-body character sheet,
+   then the reel frame beside its three storyboard panels, with the palette as paint chips. */
+:root {
+  --paper: #EDEDE3;
+  --sheet: #F8F7F0;
+  --ink: #2B2724;
+  --muted: #67645C;
+  --rule: #D6D3C5;
+  --sage: #4D7856;
+  --slate: #4A6789;
+  --terra: #B24E3A;
+  --display: "Caveat Brush", "Comic Sans MS", "Segoe Print", cursive;
+  --body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --step-2: 1.9rem;
+  --step-3: 2.8rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1C1F1D; --sheet: #252926; --ink: #ECE9DF; --muted: #A6A399; --rule: #3A3F3B;
+    --sage: #8DBB95; --slate: #93AFD3; --terra: #E08B75; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1C1F1D; --sheet: #252926; --ink: #ECE9DF; --muted: #A6A399; --rule: #3A3F3B;
+  --sage: #8DBB95; --slate: #93AFD3; --terra: #E08B75; color-scheme: dark;
+}
+
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 64px; }
+
+header { display: grid; gap: 12px; }
+header h1 { font-family: var(--display); font-weight: 400; font-size: var(--step-3); line-height: 1.05; margin: 0; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 62ch; }
+.changes { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 0.9rem; }
+.changes li::before { content: "✓ "; color: var(--sage); font-weight: 700; }
+
+nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--paper);
+  margin-block: 24px 8px; padding-block: 10px; display: flex; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid var(--rule);
+}
+nav a { font-weight: 600; font-size: 0.92rem; color: var(--ink); text-decoration: none; padding: 6px 12px;
+  border: 1.5px solid var(--rule); border-radius: 999px; background: var(--sheet); }
+nav a:hover { border-color: var(--sage); }
+a:focus-visible { outline: 3px solid var(--sage); outline-offset: 2px; }
+nav a b { font-family: var(--display); font-weight: 400; font-size: 1.05rem; margin-right: 4px; color: var(--sage); }
+
+.version { display: grid; gap: 22px; padding-block: 40px; border-bottom: 1px solid var(--rule); scroll-margin-top: 70px; }
+.title { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.num { font-family: var(--display); font-size: var(--step-2); line-height: 1; color: var(--sage); width: 1.6em; height: 1.6em;
+  display: grid; place-items: center; border: 2.5px solid var(--sage); border-radius: 50% 46% 52% 48%; flex: none; }
+h2 { font-family: var(--display); font-weight: 400; font-size: var(--step-2); line-height: 1.1; margin: 0; }
+.lead { margin: 0; max-width: 62ch; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chips li { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; padding: 4px 10px 4px 4px;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 999px; }
+.chips i { width: 22px; height: 22px; border-radius: 50%; background: var(--c); border: 1.5px solid rgba(43, 39, 36, .35); flex: none; }
+
+.ficha { margin: 0; background: var(--sheet); padding: 10px; border-radius: 4px; box-shadow: 0 1px 0 var(--rule), 0 10px 24px -16px rgba(40, 35, 25, .45); }
+.ficha img { display: block; width: 100%; height: auto; aspect-ratio: 900 / 667; border-radius: 2px; }
+.ficha figcaption { font-size: 0.8rem; color: var(--muted); padding-top: 6px; text-align: center; }
+
+.story { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.frame { margin: 0; background: var(--sheet); padding: 8px 8px 6px; border-radius: 4px; transform: rotate(-1deg);
+  box-shadow: 0 1px 0 var(--rule), 0 10px 24px -14px rgba(40, 35, 25, .45); }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 2px; }
+.frame figcaption { font-size: 0.8rem; color: var(--muted); text-align: center; padding-top: 6px; }
+.panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.panels figure { margin: 0; display: grid; gap: 6px; }
+.panels img { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 3px; border: 1px solid var(--rule); }
+.panels figcaption { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.panels figcaption::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); flex: none; }
+.p-pas { --dot: var(--slate); }
+.p-agr { --dot: var(--terra); }
+.p-ase { --dot: var(--sage); }
+.story .note { grid-column: 2; margin: 0; font-size: 0.9rem; color: var(--muted); }
+
+.close { padding-block: 36px 0; max-width: 62ch; display: grid; gap: 8px; }
+.close p { margin: 0; }
+
+@media (max-width: 720px) {
+  header h1 { font-size: 2.2rem; }
+  .story { grid-template-columns: minmax(0, 1fr); }
+  .frame { max-width: 240px; justify-self: center; }
+  .story .note { grid-column: 1; }
+  .panels { gap: 8px; }
+  .panels figcaption { font-size: 0.78rem; }
+}
+@media (prefers-reduced-motion: reduce) { .frame { transform: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Personitas, versión mejorada</h1>
+    <p>Los mismos dos personajes humanos, redibujados con más cuidado, en tres paletas distintas. Cada versión muestra primero la ficha de cuerpo entero, después un cuadro del reel y las tres escenas.</p>
+    <ul class="changes" aria-label="Qué cambió">
+      <li>Cuello visible en los dos</li>
+      <li>Hombros redondeados y mangas unidas al cuerpo</li>
+      <li>Manos con pulgar y puño cerrado</li>
+      <li>Nariz, cejas y brillo en los ojos</li>
+      <li>Pelo con volumen y mechones</li>
+      <li>Zapatillas y botas</li>
+      <li>Capucha con cordones, chaleco con botones, cárdigan</li>
+    </ul>
+  </header>
+
+  <nav aria-label="Versiones">
+    <a href="#v1"><b>1</b>Azul y pelirroja</a>
+    <a href="#v2"><b>2</b>Salvia y mostaza</a>
+    <a href="#v3"><b>3</b>Lila y coral</a>
+  </nav>
+
+  <section class="version" id="v1">
+    <div class="title"><span class="num">1</span><h2>Azul y pelirroja</h2></div>
+    <p class="lead">La más fiel a tu referencia de @neuro_class: él con buzo azul y capucha, ella pelirroja con pecas, camisa, chaleco marrón, jean arremangado y botas.</p>
+    <ul class="chips" aria-label="Paleta">
+      <li><i style="--c:#6E8FC2"></i>Buzo azul</li>
+      <li><i style="--c:#D5652E"></i>Pelo cobrizo</li>
+      <li><i style="--c:#8B5A3B"></i>Chaleco marrón</li>
+      <li><i style="--c:#7B9ACB"></i>Jean</li>
+      <li><i style="--c:#F4EEE3"></i>Camisa crema</li>
+    </ul>
+    <figure class="ficha">
+      <img src="v1_ficha.jpg" width="900" height="667" alt="Chico de pelo oscuro con buzo azul saludando y chica pelirroja con chaleco marrón y botas, de cuerpo entero">
+      <figcaption>Ficha de personajes</figcaption>
+    </figure>
+    <div class="story">
+      <figure class="frame">
+        <img src="v1_reel.jpg" width="720" height="1280" alt="Cuadro del reel en la escena asertiva con los dos personajes de la mano">
+        <figcaption>Así se vería en el reel</figcaption>
+      </figure>
+      <ul class="panels">
+        <li><figure><img src="v1_pasiva.jpg" width="600" height="600" alt="Él triste con los brazos cruzados bajo una nubecita, ella hablando"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="v1_agresiva.jpg" width="600" height="600" alt="Él enojado señalando con el puño apretado, ella asustada"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="v1_asertiva.jpg" width="600" height="600" alt="Los dos sonriendo de la mano con un corazón"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="version" id="v2">
+    <div class="title"><span class="num">2</span><h2>Salvia y mostaza</h2></div>
+    <p class="lead">Colores tierra y cálidos. Él con rulos cortos y suéter mostaza, ella con pelo afro y aros dorados. Suma diversidad y se ve muy natural con el fondo del reel.</p>
+    <ul class="chips" aria-label="Paleta">
+      <li><i style="--c:#DDA73F"></i>Mostaza</li>
+      <li><i style="--c:#A9BE92"></i>Salvia</li>
+      <li><i style="--c:#5E6B55"></i>Oliva</li>
+      <li><i style="--c:#56688C"></i>Índigo</li>
+      <li><i style="--c:#E2B34A"></i>Dorado</li>
+    </ul>
+    <figure class="ficha">
+      <img src="v2_ficha.jpg" width="900" height="667" alt="Chico de rulos con suéter mostaza saludando y chica de pelo afro con suéter verde salvia y aros dorados">
+      <figcaption>Ficha de personajes</figcaption>
+    </figure>
+    <div class="story">
+      <figure class="frame">
+        <img src="v2_reel.jpg" width="720" height="1280" alt="Cuadro del reel en la escena asertiva con los dos personajes de la mano">
+        <figcaption>Así se vería en el reel</figcaption>
+      </figure>
+      <ul class="panels">
+        <li><figure><img src="v2_pasiva.jpg" width="600" height="600" alt="Él triste con los brazos cruzados bajo una nubecita, ella hablando"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="v2_agresiva.jpg" width="600" height="600" alt="Él enojado señalando con el puño apretado, ella asustada"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="v2_asertiva.jpg" width="600" height="600" alt="Los dos sonriendo de la mano con un corazón"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="version" id="v3">
+    <div class="title"><span class="num">3</span><h2>Lila y coral</h2></div>
+    <p class="lead">La más pastel y luminosa. Él con anteojos redondos, raya al costado y buzo lila, ella con melena rubia, hebilla, cárdigan coral y botas.</p>
+    <ul class="chips" aria-label="Paleta">
+      <li><i style="--c:#A99BD3"></i>Lila</li>
+      <li><i style="--c:#EF917B"></i>Coral</li>
+      <li><i style="--c:#E3B866"></i>Rubio</li>
+      <li><i style="--c:#7F9C8C"></i>Verde agua</li>
+      <li><i style="--c:#9A5B34"></i>Castaño</li>
+    </ul>
+    <figure class="ficha">
+      <img src="v3_ficha.jpg" width="900" height="667" alt="Chico con anteojos y buzo lila saludando y chica de melena rubia con cárdigan coral">
+      <figcaption>Ficha de personajes</figcaption>
+    </figure>
+    <div class="story">
+      <figure class="frame">
+        <img src="v3_reel.jpg" width="720" height="1280" alt="Cuadro del reel en la escena asertiva con los dos personajes de la mano">
+        <figcaption>Así se vería en el reel</figcaption>
+      </figure>
+      <ul class="panels">
+        <li><figure><img src="v3_pasiva.jpg" width="600" height="600" alt="Él triste con los brazos cruzados bajo una nubecita, ella hablando"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="v3_agresiva.jpg" width="600" height="600" alt="Él enojado señalando con el puño apretado, ella asustada"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="v3_asertiva.jpg" width="600" height="600" alt="Los dos sonriendo de la mano con un corazón"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close">
+    <h2>¿Cuál va?</h2>
+    <p>Decime el número, o una combinación (por ejemplo, el chico de la 3 con la chica de la 1). Con eso rehago el video completo, con el mismo guion, textos, música y tu usuario.</p>
+  </section>
+</div>
