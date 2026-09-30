@@ -1,0 +1,244 @@
+<title>Personajes del reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* Layout: a sketchbook contact sheet. Each option is one spread: the reel frame as a tall print,
+   next to its three storyboard panels (pasiva / agresiva / asertiva). */
+:root {
+  --paper: #EDEDE3;
+  --sheet: #F8F7F0;
+  --ink: #2B2724;
+  --muted: #67645C;
+  --rule: #D6D3C5;
+  --sage: #4D7856;
+  --slate: #4A6789;
+  --terra: #B24E3A;
+  --display: "Caveat Brush", "Comic Sans MS", "Segoe Print", cursive;
+  --body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.9rem;
+  --step-3: 2.8rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1C1F1D; --sheet: #252926; --ink: #ECE9DF; --muted: #A6A399; --rule: #3A3F3B;
+    --sage: #8DBB95; --slate: #93AFD3; --terra: #E08B75; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1C1F1D; --sheet: #252926; --ink: #ECE9DF; --muted: #A6A399; --rule: #3A3F3B;
+  --sage: #8DBB95; --slate: #93AFD3; --terra: #E08B75; color-scheme: dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 64px; }
+
+header { display: grid; gap: 10px; max-width: 62ch; }
+header h1 {
+  font-family: var(--display); font-weight: 400; font-size: var(--step-3); line-height: 1.05;
+  margin: 0; text-wrap: balance;
+}
+header p { margin: 0; color: var(--muted); }
+
+nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2;
+  margin-block: 24px 8px; padding-block: 10px;
+  background: var(--paper);
+  display: flex; flex-wrap: wrap; gap: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+nav a {
+  font-weight: 600; font-size: 0.92rem; color: var(--ink); text-decoration: none;
+  padding: 6px 12px; border: 1.5px solid var(--rule); border-radius: 999px; background: var(--sheet);
+}
+nav a:hover { border-color: var(--sage); }
+nav a:focus-visible, a:focus-visible { outline: 3px solid var(--sage); outline-offset: 2px; }
+nav a b { font-family: var(--display); font-weight: 400; font-size: 1.05rem; margin-right: 4px; color: var(--sage); }
+
+.option {
+  display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px;
+  padding-block: 40px; border-bottom: 1px solid var(--rule);
+  scroll-margin-top: 70px;
+}
+.frame {
+  margin: 0; background: var(--sheet); padding: 10px 10px 8px; border-radius: 4px;
+  box-shadow: 0 1px 0 var(--rule), 0 10px 24px -14px rgba(40, 35, 25, .45);
+  transform: rotate(-1.2deg); align-self: start;
+}
+.option:nth-of-type(even) .frame { transform: rotate(1deg); }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 2px; }
+.frame figcaption { font-size: 0.8rem; color: var(--muted); text-align: center; padding-top: 6px; }
+
+.info { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.title { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.num {
+  font-family: var(--display); font-size: var(--step-2); line-height: 1; color: var(--sage);
+  width: 1.6em; height: 1.6em; display: grid; place-items: center;
+  border: 2.5px solid var(--sage); border-radius: 50% 46% 52% 48%;
+}
+h2 { font-family: var(--display); font-weight: 400; font-size: var(--step-2); line-height: 1.1; margin: 0; }
+.ref { font-size: 0.86rem; color: var(--muted); margin: 0; }
+.ref strong { color: var(--ink); font-weight: 600; }
+.info > p { margin: 0; max-width: 62ch; }
+
+.panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 6px 0 0; padding: 0; list-style: none; }
+.panels figure { margin: 0; display: grid; gap: 6px; }
+.panels img { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 3px; border: 1px solid var(--rule); }
+.panels figcaption { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.panels figcaption::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); flex: none; }
+.p-pas { --dot: var(--slate); }
+.p-agr { --dot: var(--terra); }
+.p-ase { --dot: var(--sage); }
+
+.traits { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; list-style: none; font-size: 0.88rem; color: var(--muted); }
+.traits li::before { content: "✎ "; color: var(--sage); }
+
+.current .num { color: var(--muted); border-color: var(--muted); }
+.close { padding-block: 36px 0; max-width: 62ch; display: grid; gap: 8px; }
+.close h2 { font-size: var(--step-2); }
+.close p { margin: 0; }
+
+@media (max-width: 720px) {
+  header h1 { font-size: 2.2rem; }
+  .option { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .frame { max-width: 260px; justify-self: center; }
+  .panels { gap: 8px; }
+  .panels figcaption { font-size: 0.78rem; }
+}
+@media (prefers-reduced-motion: reduce) { .frame { transform: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Personajes para el reel de comunicación asertiva</h1>
+    <p>Cinco familias nuevas, cada una salida de una de tus referencias. Todas usan el mismo estilo de acuarela y tinta del video, y se ven en los tres momentos clave: pasiva, agresiva y asertiva. A la izquierda, cómo quedaría un cuadro del reel.</p>
+  </header>
+
+  <nav aria-label="Opciones">
+    <a href="#op1"><b>1</b>Globos</a>
+    <a href="#op2"><b>2</b>Corazones</a>
+    <a href="#op3"><b>3</b>Nubes</a>
+    <a href="#op4"><b>4</b>Personitas</a>
+    <a href="#op5"><b>5</b>Manos</a>
+    <a href="#actual">Actual</a>
+  </nav>
+
+  <section class="option" id="op1">
+    <figure class="frame">
+      <img src="globos_reel.jpg" width="720" height="1280" alt="Cuadro del reel con dos globos azules con caritas, sus hilos atados con un moño y un corazón">
+      <figcaption>Así se vería en el reel</figcaption>
+    </figure>
+    <div class="info">
+      <div class="title"><span class="num">1</span><h2>Globos con carita</h2></div>
+      <p class="ref">Inspirada en <strong>@msofiadelourdes</strong>, los globos azules con caras.</p>
+      <p>Cada persona es un globo. Cuando se calla, se desinfla y queda abajo. Cuando ataca, se infla y se pone rojo hasta casi explotar, y el otro se aleja flotando. En la asertiva quedan a la misma altura, con los hilos atados juntos.</p>
+      <ul class="traits"><li>Muy fiel a tu referencia</li><li>Metáfora fácil de leer</li><li>Tierna y liviana</li></ul>
+      <ul class="panels">
+        <li><figure><img src="globos_pasiva.jpg" width="600" height="600" alt="Globo desinflado y triste bajo una nubecita, al lado de otro globo que habla"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="globos_agresiva.jpg" width="600" height="600" alt="Globo inflado y rojo gritando, el otro globo asustado se aleja"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="globos_asertiva.jpg" width="600" height="600" alt="Dos globos sonrientes con los hilos atados y un corazón"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="option" id="op2">
+    <figure class="frame">
+      <img src="corazones_reel.jpg" width="720" height="1280" alt="Cuadro del reel con dos corazones con patitas sentados de la mano">
+      <figcaption>Así se vería en el reel</figcaption>
+    </figure>
+    <div class="info">
+      <div class="title"><span class="num">2</span><h2>Corazones con patitas</h2></div>
+      <p class="ref">Inspirada en <strong>@miriamsa.tanatologa</strong>, los corazones en la playa.</p>
+      <p>Dos corazoncitos con piernas y bracitos. En la pasiva, uno se achica debajo de su nube. En la agresiva echa vapor por las venitas, como una pava, y al otro le aparece una grieta. En la asertiva se sientan juntos de la mano.</p>
+      <ul class="traits"><li>La más emotiva</li><li>Habla directo del vínculo</li><li>La grieta hace muy visible el daño</li></ul>
+      <ul class="panels">
+        <li><figure><img src="corazones_pasiva.jpg" width="600" height="600" alt="Corazón triste bajo una nube, al lado de otro corazón que habla"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="corazones_agresiva.jpg" width="600" height="600" alt="Corazón enojado echando vapor y señalando, el otro corazón asustado con una grieta"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="corazones_asertiva.jpg" width="600" height="600" alt="Dos corazones sentados de la mano con un corazón arriba"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="option" id="op3">
+    <figure class="frame">
+      <img src="nubes_reel.jpg" width="720" height="1280" alt="Cuadro del reel con una nube gris azulada y una nube clara de la mano bajo un arcoíris">
+      <figcaption>Así se vería en el reel</figcaption>
+    </figure>
+    <div class="info">
+      <div class="title"><span class="num">3</span><h2>Nubes con emociones</h2></div>
+      <p class="ref">Inspirada en <strong>@neuro_class</strong>, la nube que da la mano.</p>
+      <p>Las emociones hechas personaje. La nube gris llueve cuando se calla y se vuelve tormenta, con rayo, cuando ataca. La nube clara se achica del susto. En la asertiva se dan la mano y sale el arcoíris.</p>
+      <ul class="traits"><li>Muy clara para hablar de emociones</li><li>Clima = estado de ánimo</li><li>Final luminoso</li></ul>
+      <ul class="panels">
+        <li><figure><img src="nubes_pasiva.jpg" width="600" height="600" alt="Nube gris triste lloviznando al lado de una nube clara que habla"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="nubes_agresiva.jpg" width="600" height="600" alt="Nube de tormenta enojada con un rayo, nube clara asustada"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="nubes_asertiva.jpg" width="600" height="600" alt="Dos nubes felices de la mano delante de un arcoíris"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="option" id="op4">
+    <figure class="frame">
+      <img src="personitas_reel.jpg" width="720" height="1280" alt="Cuadro del reel con un chico de buzo azul y una chica pelirroja de chaleco tomados de la mano">
+      <figcaption>Así se vería en el reel</figcaption>
+    </figure>
+    <div class="info">
+      <div class="title"><span class="num">4</span><h2>Personitas en lápiz de color</h2></div>
+      <p class="ref">Inspirada en <strong>@neuro_class</strong>, el chico de buzo y la chica pelirroja.</p>
+      <p>Dos personas simples: él en azul, como el chico de brazos cruzados, y ella pelirroja con chaleco. Es la opción más directa, porque cualquiera se ve reflejado. Brazos cruzados en la pasiva, puño y dedo acusador en la agresiva, y de la mano en la asertiva.</p>
+      <ul class="traits"><li>La más identificable</li><li>Lenguaje corporal claro</li><li>Más "de consultorio"</li></ul>
+      <ul class="panels">
+        <li><figure><img src="personitas_pasiva.jpg" width="600" height="600" alt="Chico triste con los brazos cerrados bajo una nubecita, chica hablando"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="personitas_agresiva.jpg" width="600" height="600" alt="Chico enojado con el puño en alto señalando, chica asustada"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="personitas_asertiva.jpg" width="600" height="600" alt="Chico y chica sonrientes tomados de la mano con un corazón"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="option" id="op5">
+    <figure class="frame">
+      <img src="manos_reel.jpg" width="720" height="1280" alt="Cuadro del reel con una mano coral y una mano azul que se encuentran sobre círculos concéntricos">
+      <figcaption>Así se vería en el reel</figcaption>
+    </figure>
+    <div class="info">
+      <div class="title"><span class="num">5</span><h2>Manos que hablan</h2></div>
+      <p class="ref">Inspirada en <strong>@miriamsa.tanatologa</strong>, «Siento que te perdí dos veces».</p>
+      <p>Sin caras: todo lo cuentan los gestos. Un puño que se guarda mientras la otra mano habla y habla. Un dedo que señala y una mano que retrocede. Dos manos que por fin se encuentran. Tiene los círculos concéntricos de fondo de tu referencia.</p>
+      <ul class="traits"><li>La más poética y minimalista</li><li>Se destaca en el feed</li><li>Gestos universales</li></ul>
+      <ul class="panels">
+        <li><figure><img src="manos_pasiva.jpg" width="600" height="600" alt="Puño coral cerrado abajo, mano azul hablando con un globo de bla bla bla"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="manos_agresiva.jpg" width="600" height="600" alt="Mano coral señalando con el dedo, mano azul que retrocede asustada"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="manos_asertiva.jpg" width="600" height="600" alt="Mano coral y mano azul que se tocan con un corazón arriba"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="option current" id="actual">
+    <figure class="frame">
+      <img src="actual_reel.jpg" width="720" height="1280" alt="Cuadro del reel actual con los dos personajes redondos, azul y coral, de la mano">
+      <figcaption>El reel como está hoy</figcaption>
+    </figure>
+    <div class="info">
+      <div class="title"><span class="num">·</span><h2>Los actuales, para comparar</h2></div>
+      <p>Los dos personajes redondos que ya tiene el video, uno azul con pelito y otro coral con un brote, con la nubecita gris como "lo que molesta".</p>
+      <ul class="panels">
+        <li><figure><img src="actual_pasiva.jpg" width="600" height="600" alt="Personaje azul encogido bajo una nube que llueve, personaje coral al lado"><figcaption class="p-pas">Pasiva</figcaption></figure></li>
+        <li><figure><img src="actual_agresiva.jpg" width="600" height="600" alt="Personaje azul enojado gritando, personaje coral asustado"><figcaption class="p-agr">Agresiva</figcaption></figure></li>
+        <li><figure><img src="actual_asertiva.jpg" width="600" height="600" alt="Los dos personajes sonrientes de la mano con un corazón"><figcaption class="p-ase">Asertiva</figcaption></figure></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close">
+    <h2>¿Cuál te convence?</h2>
+    <p>Decime el número, o una mezcla (por ejemplo, los corazones con el fondo de círculos de las manos). Rehago el video completo con esos personajes, con el mismo guion, textos, tiempos y tu usuario.</p>
+  </section>
+</div>
