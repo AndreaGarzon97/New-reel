@@ -185,7 +185,7 @@ def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look
 
     hip_y = -165
     sh_y = -312 + shrink * 6
-    head_c = np.array([0.0, sh_y - 96 + shrink * 16])
+    head_c = np.array([0.0, sh_y - 72 + shrink * 12])
     SW = 56 if girl else 64       # shoulder joint x
     skin, top = cfg['skin'], cfg['top']
     sleeve_col = top if cfg['top_style'] != 'vest' else top
@@ -277,7 +277,7 @@ def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look
             ctx.line(T([p0, p0 + d * 7]), 2.6 * s, key=(key, 'kn', j, k), alpha=0.7)
 
     # ---------- neck (under the collar)
-    neck = chain([[0, sh_y + 12], [0, head_c[1] + 30]], [14 if girl else 16])
+    neck = chain([[0, sh_y + 12], [0, head_c[1] + 34]], [16 if girl else 18])
     if cfg['top_style'] != 'hoodie':
         shape(ctx, [T(neck)], skin, (key, 'neck'), width=4.4 * s)
 
