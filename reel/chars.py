@@ -1,5 +1,6 @@
 """The two little characters, speech bubbles, the worry-cloud and small doodles."""
 import math
+import os
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -57,6 +58,9 @@ def body_outline(n=180):
 
 
 def draw_char(ctx: Ctx, c: Char, key):
+    if os.environ.get('REEL_CHARS') == 'people':
+        import people_adapter
+        return people_adapter.draw(ctx, c, key)
     s = c.s
     X, Y = c.x, c.y
     if c.shake:

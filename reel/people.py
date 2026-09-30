@@ -80,8 +80,9 @@ MOODS = {
 }
 
 
-def face2(ctx, hc, s, mood, key, cfg, look=(0, 0)):
-    eyes, brow, mouth, mopen, wavy, mlook = MOODS[mood]
+def face2(ctx, hc, s, mood, key, cfg, look=(0, 0), mopen=None):
+    eyes, brow, mouth, mopen0, wavy, mlook = MOODS[mood]
+    mopen = mopen0 if mopen is None else mopen
     lx, ly = look[0] + mlook[0], look[1] + mlook[1]
     cx, cy = hc[0] + lx * s, hc[1] + ly * s
     lw = 5.0 * s
@@ -175,7 +176,7 @@ def hand_poly(wrist, d, s, sg, fist=False):
 
 
 def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look=(0, 0), hands_to=(None, None),
-            step=0.0, shrink=0.0):
+            step=0.0, shrink=0.0, sit=False, walk=None, head_dy=0.0, mopen=None, swing=0.0):
     girl = cfg['kind'] == 'girl'
     O = np.array([x, yg], np.float64)
 
@@ -183,9 +184,9 @@ def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look
         p = np.atleast_2d(np.asarray(p, np.float64))
         return rot(p * s + O, lean, O)
 
-    hip_y = -165
-    sh_y = -312 + shrink * 6
-    head_c = np.array([0.0, sh_y - 72 + shrink * 12])
+    hip_y = -12 if sit else -165      # sitting: hips on the ledge, legs hang over it
+    sh_y = hip_y - 147 + shrink * 6
+    head_c = np.array([0.0, sh_y - 72 + shrink * 12 + head_dy])
     SW = 56 if girl else 64       # shoulder joint x
     skin, top = cfg['skin'], cfg['top']
     sleeve_col = top if cfg['top_style'] != 'vest' else top
@@ -217,8 +218,15 @@ def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look
     r_leg = [24, 21, 18] if girl else [27, 24, 21]
     for sg in (-1, 1):
         top_p = np.array([sg * 30, hip_y + 12])
-        ank = np.array([sg * 34 + (step * 36 if sg > 0 else 0), -26])
-        knee = (top_p + ank) / 2 + np.array([sg * 3, 0])
+        if sit:
+            ank = np.array([sg * 36 + swing * sg * 12, hip_y + 112])
+            knee = np.array([sg * 34, hip_y + 44])
+        else:
+            ank = np.array([sg * 34 + (step * 36 if sg > 0 else 0), -26.0])
+            if walk is not None:
+                ph = walk + (0 if sg < 0 else math.pi)
+                ank = ank + np.array([14 * math.cos(ph), -16 * max(0.0, math.sin(ph))])
+            knee = (top_p + ank) / 2 + np.array([sg * 3, 0])
         legs.append(chain([top_p, knee, ank], r_leg))
         ankles.append(ank)
     pelvis = spline([[-62, hip_y - 20], [62, hip_y - 20], [60, hip_y + 34], [0, hip_y + 44], [-60, hip_y + 34]])
@@ -226,17 +234,18 @@ def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look
     ctx.line(T([[0, hip_y + 28], [0, hip_y + 62]]), 3.2 * s, key=(key, 'crotch'), alpha=0.6)
     for i, sg in enumerate((-1, 1)):
         ank = ankles[i]
+        ay = ank[1] + 26  # shoe offset from the ground line
         if cfg.get('cuffs'):
             shape(ctx, [T(chain([ank + np.array([-r_leg[2] - 3, -4]), ank + np.array([r_leg[2] + 3, -4])], [8]))],
                   shade(cfg['pants'], 0.92), (key, 'cuff', sg), width=4 * s)
         if cfg['shoe_style'] == 'boot':
-            boot = spline([[ank[0] - 20, -44], [ank[0] + 20, -44], [ank[0] + 24 + sg * 8, -12], [ank[0] + sg * 14 + 26, 0],
-                           [ank[0] + sg * 14 - 26, 0], [ank[0] - 24 + sg * 8, -12]])
+            boot = spline([[ank[0] - 20, ay - 44], [ank[0] + 20, ay - 44], [ank[0] + 24 + sg * 8, ay - 12],
+                           [ank[0] + sg * 14 + 26, ay], [ank[0] + sg * 14 - 26, ay], [ank[0] - 24 + sg * 8, ay - 12]])
             shape(ctx, [T(boot)], cfg['shoes'], (key, 'shoe', sg), width=4.2 * s)
         else:
-            shoe = ell(ank[0] + sg * 8, -14, 30, 15, 36)
+            shoe = ell(ank[0] + sg * 8, ay - 14, 30, 15, 36)
             shape(ctx, [T(shoe)], cfg['shoes'], (key, 'shoe', sg), width=4.2 * s)
-            sole = chain([[ank[0] + sg * 8 - 27, -4], [ank[0] + sg * 8 + 27, -4]], [4.5])
+            sole = chain([[ank[0] + sg * 8 - 27, ay - 4], [ank[0] + sg * 8 + 27, ay - 4]], [4.5])
             shape(ctx, [T(sole)], rgb('#F2EFE6'), (key, 'sole', sg), width=3.4 * s, edge=0.1)
 
     # ---------- arms geometry
@@ -401,5 +410,5 @@ def person2(ctx, x, yg, s, cfg, mood, key, arms=('rest', 'rest'), lean=0.0, look
         clip = chain([[28, -34], [46, -42]], [5])
         shape(ctx, [T(clip + hc)], rgb('#6FA5A0'), (key, 'clip'), width=3 * s)
 
-    face2(ctx, T(hc)[0], s, mood, (key, 'face'), cfg, look=look)
+    face2(ctx, T(hc)[0], s, mood, (key, 'face'), cfg, look=look, mopen=mopen)
     return T(hc)[0]

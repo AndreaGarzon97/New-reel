@@ -10,6 +10,9 @@ papel y crayón, letra manuscrita y animación "en dos" (15 dibujos por segundo)
 - `out/reel_sin_musica.mp4` — misma animación sin audio (para sumarle un tema desde Instagram).
 - Las versiones de mayor calidad (~48 MB) se generan con `render.py` y no se suben al repo.
 - `out/portada.png` — portada sugerida.
+- `out/personitas/reel_personitas_ukelele.mp4` — versión aparte con las personitas (buzo azul y pelirroja),
+  música de ukelele y silbido, y `portada_personitas.png`. Se genera con
+  `REEL_CHARS=people python3 render.py` y la música de `songs.py`.
 - `reel/` — código fuente (`draw.py` trazos y texturas, `chars.py` personajes,
   `scenes.py` guion y tiempos, `music.py` música, `render.py` render final).
 
