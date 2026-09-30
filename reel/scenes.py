@@ -208,6 +208,8 @@ def ground_line(ctx, name):
     for j in range(9):
         gx = 60 + j * 118 + r.integers(-30, 30)
         gy = GROUND_Y + 30 + r.integers(0, 110)
+        if 290 < gx < 790:  # keep the signature area clean
+            continue
         for k in range(3):
             a = -math.pi / 2 + (k - 1) * 0.45
             ctx.line([[gx + k * 7, gy], [gx + k * 7 + 16 * math.cos(a), gy + 22 * math.sin(a)]], 3.6,
@@ -216,6 +218,15 @@ def ground_line(ctx, name):
         hx = np.linspace(-20, W + 20, 60)
         hy = 1245 - 85 * np.exp(-((hx - 820) / 260) ** 2) - 40 * np.exp(-((hx - 200) / 200) ** 2)
         ctx.line(np.stack([hx, hy], 1), 4.2, key='hill2l', alpha=0.8, taper=(0.02, 0.02))
+
+
+HANDLE = '@lic.andreagarzon'
+HANDLE_Y = 1470  # lowest spot that stays visible above Instagram's caption overlay
+
+
+def signature(ctx):
+    lettering(ctx, HANDLE, W / 2, HANDLE_Y, font('Caveat.ttf', 60), 'handle', color=rgb('#2E2724', 0.78),
+              weight=0.6, rot=1.2, bounce=1.5)
 
 
 def draw_bg(ctx, name):

@@ -9,7 +9,7 @@ import numpy as np
 import skia
 
 from draw import H, W, Ctx, fbm, film_grain
-from scenes import BOUNDS, SCENES
+from scenes import BOUNDS, SCENES, signature
 
 FPS_DRAW = 15          # drawn "on twos"
 FPS_OUT = 30
@@ -27,6 +27,7 @@ def render_scene(k, t, boil):
     cv = surf.getCanvas()
     ctx = Ctx(cv, boil, t)
     SCENES[k](ctx, t - BOUNDS[k])
+    signature(ctx)
     # analog grain, changes with the drawings
     p = skia.Paint()
     p.setBlendMode(skia.BlendMode.kOverlay)

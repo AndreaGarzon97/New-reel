@@ -7,7 +7,8 @@ from PIL import Image
 
 from chars import cloud, heart, draw_char
 from draw import Ctx, H, W, font, lettering, film_grain
-from scenes import BRUSH, HAND, SAGE_D, TERRA, TAG, charA, charB, draw_bg, ground_line, underline, text_width
+from scenes import (BRUSH, HAND, SAGE_D, TERRA, TAG, charA, charB, draw_bg, ground_line, signature, underline,
+                    text_width)
 
 surf = skia.Surface(W, H)
 cv = surf.getCanvas()
@@ -28,6 +29,7 @@ B = charB(x=658, eyes='happy', mouth=0.9, look=(-4, 0), arms=(('abs', 502, 1300,
 draw_char(ctx, A, 'A')
 draw_char(ctx, B, 'B')
 heart(ctx, 490, 1040, 34, 'heart')
+signature(ctx)
 
 p = skia.Paint()
 p.setBlendMode(skia.BlendMode.kOverlay)
