@@ -3,6 +3,7 @@
    node render.cjs sheet <t1,t2,...> <out.png>        (hoja de contactos, 4 columnas)
    node render.cjs cues <out.json>
    node render.cjs cover <out.png>
+   node render.cjs clip <t0> <t1> <out.mkv>           (sólo un tramo, sin audio)
    node render.cjs video <out.mp4> [jobs]              (sin audio; el audio se mezcla aparte) */
 const http = require('http');
 const fs = require('fs');
@@ -72,6 +73,8 @@ async function renderRange(port, a, b, out) {
       const { browser, page } = await openPage(port, 'cover.html');
       fs.writeFileSync(a1, await shot(page, 0));
       await browser.close();
+    } else if (mode === 'clip') {
+      await renderRange(port, Math.round(parseFloat(a1) * FPS), Math.round(parseFloat(a2) * FPS), a3);
     } else if (mode === 'still') {
       const { browser, page } = await openPage(port);
       fs.writeFileSync(a2, await shot(page, parseFloat(a1)));

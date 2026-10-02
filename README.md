@@ -25,12 +25,12 @@ se sintetiza a partir de las mismas marcas de tiempo, así que el sonido cae jus
 |---|---|---|
 | 0–4 s | Gancho | Globo de "escribiendo…" que aparece y desaparece. ¿Por qué engancha más quien te quiere *a veces*? |
 | 4–10,4 s | Qué es | Entrada de diccionario: *refuerzo intermitente*. 1. Recompensa que llega solo a veces. 2. fig. Revisar el celular una y otra vez. |
-| 10,4–18,4 s | Laboratorio | Fig. 1, registro acumulativo (Ferster & Skinner, 1957): premio siempre vs. premio a veces (al azar); se retira el premio. Lo que llega *a veces* se busca más… y cuesta más soltarlo. |
+| 10,4–18,4 s | Laboratorio | Fig. 1, registro acumulativo de picoteos (Ferster & Skinner, 1957): zona CON PREMIO y, tras una pausa en el corte, zona SIN PREMIO. Premio siempre: deja de picotear. Premio a veces (al azar): sigue picoteando ("todo esto, sin premio"), y se oyen los picoteos. Lo que llega *a veces* cuesta más soltarlo. |
 | 18,4–24,4 s | Cerebro | Tragamonedas: corazón, corazón, cruz (casi). La dopamina responde más a lo *incierto* que a lo seguro (Fiorillo, Tobler & Schultz, 2003). |
 | 24,4–33,6 s | Vínculos sanos | También hay intermitencia. Lo que varía: deseo, tiempo, sorpresas. La base: respeto, cuidado, seguridad. Varían los extras. *La base no se mueve.* |
-| 33,6–40 s | Tóxicos y violentos | Lo que va y viene *es la base*: la línea estable se rompe en cariño / frialdad, atención / silencio, promesas / desprecio. |
+| 33,6–40 s | Vínculos con violencia | Cuando hay violencia, lo que va y viene *es la base*. La violencia no es solo física. La línea estable se rompe en cariño / frialdad, atención / silencio, promesas / desprecio. |
 | 40–47,2 s | Violencia | Ciclo de la violencia (Walker, 1979): tensión → explosión → luna de miel (el premio), y se repite. Y el *alivio* se confunde con amor (Dutton & Painter, 1981). |
-| 47,2–54,4 s | La diferencia | Vínculo sano: lo impredecible es *la sorpresa*. Vínculo violento: lo impredecible es *cómo te van a tratar*. |
+| 47,2–54,4 s | La diferencia | Vínculo sano: lo impredecible es *la sorpresa*. Vínculo con violencia: lo impredecible es *cómo te van a tratar*. |
 | 54,4–60 s | Cierre | Que te enganche no significa que *te haga bien*. Si vivís violencia en tu vínculo, no es tu culpa. Línea 144. Fuentes. |
 
 ## Regenerar

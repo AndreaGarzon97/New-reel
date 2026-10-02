@@ -238,8 +238,8 @@
     reveal('#s3 .figlabel', 10.42, { d: 0.9 });
     reveal('#s3 .figsub', 10.52, { d: 0.9 });
     buildChart();
-    reveal('#s3 .caption', 15.6, { d: 1.1, st: 0.1 });
-    cue(15.6, 'hit', { v: 0.8 });
+    reveal('#s3 .caption', 15.95, { d: 1.1, st: 0.12 });
+    cue(15.95, 'hit', { v: 0.8 });
     // corte seco a negro
     tl.fromTo('#s4', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, immediateRender: true }, T.s4);
     cue(T.s4, 'cut');
@@ -278,8 +278,11 @@
     // ==============================================================
     reveal('#s6 .head', 33.75, { d: 1.1, st: 0.1 });
     cue(33.75, 'hit', { v: 0.8, dark: 1 });
+    kicker('#s6 .vnote', 34.5);
     G.toxic();
     exitUp('#s6 .head', 39.45, { st: 0.04 });
+    exitUp('#s6 .vnote', 39.45);
+    tl.to('#s6 .vnote .sq', { scale: 0, duration: 0.3, ease: 'power2.in' }, 39.45);
     tl.to('#g6', { autoAlpha: 0, y: -60, duration: 0.5, ease: 'power3.in' }, 39.5);
     tl.fromTo('#s6b', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, immediateRender: true }, T.s6b - 0.05);
     hideAt('s6', T.s6b + 0.1);
@@ -338,10 +341,23 @@
   // ------------------------------------------------------------------
   function buildChart() {
     const S = $('#chart');
-    const X0 = 70, X1 = 868, YB = 462, YT = 18, PW = X1 - X0, PH = YB - YT;
+    const X0 = 70, X1 = 868, YB = 560, YT = 84, PW = X1 - X0, PH = YB - YT;
     const UE = 0.56;                       // momento en que se retira el premio
-    const D0 = 11.05, D1 = 15.65;          // la pluma dibuja entre estos segundos
+    // tres tiempos: con premio · pausa en el corte · sin premio
+    const A0 = 10.95, A1 = 12.75, B0 = 13.4, B1 = 15.4;
+    const uAt = t => (t <= A0 ? 0 : t < A1 ? UE * (t - A0) / (A1 - A0) : t < B0 ? UE : t < B1 ? UE + (1 - UE) * (t - B0) / (B1 - B0) : 1);
+    const tAt = u => (u <= UE ? A0 + (u / UE) * (A1 - A0) : B0 + ((u - UE) / (1 - UE)) * (B1 - B0));
+    const xE = X0 + UE * PW;
     const g = svg('g', {}, S);
+
+    // zona "sin premio": se tiñe en el momento del corte
+    const defs = svg('defs', {}, S);
+    const pat = svg('pattern', { id: 'hatch', width: 16, height: 16, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+    svg('rect', { width: 16, height: 16, fill: C.ink, 'fill-opacity': 0.045 }, pat);
+    svg('line', { x1: 0, y1: 0, x2: 0, y2: 16, stroke: C.red, 'stroke-width': 2.2, 'stroke-opacity': 0.22 }, pat);
+    const tint = svg('rect', { x: xE, y: YT - 64, width: 0, height: YB - YT + 64, fill: 'url(#hatch)' }, g);
+    tl.fromTo(tint, { attr: { width: 0 } }, { attr: { width: X1 - xE }, duration: 0.55, ease: 'power3.out', immediateRender: true }, A1 + 0.08);
+
     // papel milimetrado
     const grid = svg('g', {}, g);
     const step = PW / 20;
@@ -353,10 +369,25 @@
     tl.fromTo(axes, { strokeDasharray: AL, strokeDashoffset: AL }, { strokeDashoffset: 0, duration: 0.8, ease: 'power3.inOut', immediateRender: true }, 10.55);
     tl.fromTo(axes, { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: true }, 10.55);
     const ylab = svg('text', { x: 0, y: 0, transform: `translate(${X0 - 22} ${YB}) rotate(-90)`, 'font-size': 22, fill: C.graphite, 'letter-spacing': '1.5' }, g);
-    ylab.textContent = 'RESPUESTAS ACUMULADAS';
-    const xlab = svg('text', { x: X1, y: YB + 42, 'text-anchor': 'end', 'font-size': 22, fill: C.graphite, 'letter-spacing': '1.5' }, g);
+    ylab.textContent = 'PICOTEOS ACUMULADOS';
+    const xlab = svg('text', { x: X1, y: YB + 44, 'text-anchor': 'end', 'font-size': 22, fill: C.graphite, 'letter-spacing': '1.5' }, g);
     xlab.textContent = 'TIEMPO →';
-    fadeIn([ylab, xlab], 10.9, 0.6);
+    const hint = svg('text', { x: X0, y: YB + 44, 'font-size': 22, fill: C.graphite }, g);
+    hint.textContent = '↑ cada picoteo hace subir la línea';
+    fadeIn([ylab, xlab, hint], 10.9, 0.6);
+
+    // encabezados de zona
+    const hCon = svg('text', { x: X0 + 14, y: YT - 24, 'font-size': 26, 'font-weight': 600, fill: C.ink, 'letter-spacing': '3' }, g);
+    hCon.textContent = 'CON PREMIO';
+    fadeIn(hCon, 10.9, 0.5, { y: 8 });
+    const hSin = svg('text', { x: xE + 16, y: YT - 24, 'font-size': 26, 'font-weight': 600, fill: C.redInk, 'letter-spacing': '3' }, g);
+    hSin.textContent = 'SIN PREMIO';
+    fadeIn(hSin, A1 + 0.22, 0.45, { y: 8 });
+
+    // el corte: línea firme de arriba abajo
+    const cut = svg('line', { x1: xE, y1: YB, x2: xE, y2: YT - 64, stroke: C.ink, 'stroke-width': 3.5 }, g);
+    tl.fromTo(cut, { attr: { y2: YB } }, { attr: { y2: YT - 64 }, duration: 0.4, ease: 'power3.out', immediateRender: true }, A1 + 0.02);
+    cue(A1 + 0.02, 'extinction');
 
     // curvas: integración de una tasa de respuesta con ruido
     const N = 900, rnd = mulberry32(31);
@@ -384,32 +415,31 @@
       const k = Math.exp(-(u - UE) / 0.045);
       return 0.95 * k + (u < UE + 0.25 && Math.sin(u * 120) > 0.92 ? 0.05 : 0);
     });
-    const sB = 0.94 / rawB[N], sA = 0.46 / rawA[N];
+    const sB = 0.80 / rawB[N], sA = 0.40 / rawA[N];
     const ptB = rawB.map((y, i) => [X0 + (i / N) * PW, YB - y * sB * PH]);
     const ptA = rawA.map((y, i) => [X0 + (i / N) * PW, YB - y * sA * PH]);
     const at = (pts, u) => { const f = u * N, i = Math.min(N - 1, Math.floor(f)), r = f - i; return [lerp(pts[i][0], pts[i + 1][0], r), lerp(pts[i][1], pts[i + 1][1], r)]; };
 
-    // marca de extinción
-    const xE = X0 + UE * PW;
-    const ext = svg('line', { x1: xE, y1: YB, x2: xE, y2: YT + 6, stroke: C.ink, 'stroke-width': 2.2, 'stroke-dasharray': '9 9', 'stroke-opacity': 0.75 }, g);
-    const extLab = svg('text', { x: xE + 14, y: YB - 18, 'font-size': 21, fill: C.ink, 'letter-spacing': '0.5' }, g);
-    extLab.textContent = '← se retira el premio';
-    const tE = D0 + UE * (D1 - D0);
-    tl.fromTo(ext, { attr: { y2: YB } }, { attr: { y2: YT + 6 }, duration: 0.45, ease: 'power3.out', immediateRender: true }, tE);
-    fadeIn(extLab, tE + 0.1, 0.4, { x: -10 });
-    cue(tE, 'extinction');
+    // picoteos: un golpecito cada vez que la línea sube un escalón (sólo mientras se dibuja)
+    const STEP = 0.012;
+    [[rawB, sB, 'peckB'], [rawA, sA, 'peckA']].forEach(([raw, sc, name]) => {
+      let next = STEP;
+      for (let i = 1; i <= N; i++) {
+        while (raw[i] * sc >= next) { cue(tAt(i / N), name, { pre: i / N <= UE ? 1 : 0 }); next += STEP; }
+      }
+    });
 
     // leyenda
     const leg = svg('g', {}, g);
-    svg('line', { x1: X0 + 22, y1: YT + 26, x2: X0 + 62, y2: YT + 26, stroke: C.red, 'stroke-width': 5, 'stroke-linecap': 'round' }, leg);
-    svg('text', { x: X0 + 76, y: YT + 33, 'font-size': 21, fill: C.redInk, 'font-weight': 600 }, leg).textContent = 'premio a veces (al azar)';
-    svg('line', { x1: X0 + 22, y1: YT + 62, x2: X0 + 62, y2: YT + 62, stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, leg);
-    svg('text', { x: X0 + 76, y: YT + 69, 'font-size': 21, fill: C.ink, 'font-weight': 600 }, leg).textContent = 'premio siempre';
+    svg('line', { x1: X0 + 22, y1: YT + 34, x2: X0 + 62, y2: YT + 34, stroke: C.red, 'stroke-width': 6, 'stroke-linecap': 'round' }, leg);
+    svg('text', { x: X0 + 76, y: YT + 42, 'font-size': 23, fill: C.redInk, 'font-weight': 600 }, leg).textContent = 'premio a veces (al azar)';
+    svg('line', { x1: X0 + 22, y1: YT + 72, x2: X0 + 62, y2: YT + 72, stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, leg);
+    svg('text', { x: X0 + 76, y: YT + 80, 'font-size': 23, fill: C.ink, 'font-weight': 600 }, leg).textContent = 'premio siempre';
     fadeIn(leg, 10.95, 0.5, { y: 8 });
 
     // trazos dinámicos
     const pathA = svg('path', { fill: 'none', stroke: C.ink, 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
-    const pathB = svg('path', { fill: 'none', stroke: C.red, 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    const pathB = svg('path', { fill: 'none', stroke: C.red, 'stroke-width': 6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
     const pipG = svg('g', {}, g);
     const mkPip = (pts, u, col) => {
       const [x, y] = at(pts, u);
@@ -417,28 +447,42 @@
     };
     const pA = pipsA.map(u => ({ u, e: mkPip(ptA, u, C.ink) }));
     const pB = pipsB.map(u => ({ u, e: mkPip(ptB, u, C.redInk) }));
-    pA.forEach(p => cue(D0 + p.u * (D1 - D0), 'pipA'));
-    pB.forEach(p => cue(D0 + p.u * (D1 - D0), 'pipB'));
-    cue(D0, 'pen', { d: D1 - D0 });
+    pA.forEach(p => cue(tAt(p.u), 'pipA'));
+    pB.forEach(p => cue(tAt(p.u), 'pipB'));
+    cue(A0, 'pen', { d: A1 - A0 });
+    cue(B0, 'pen', { d: B1 - B0 });
     const headA = svg('circle', { r: 7.5, fill: C.ink, opacity: 0 }, g);
-    const headB = svg('circle', { r: 8.5, fill: C.red, opacity: 0 }, g);
-    const endB = at(ptB, 1), endA = at(ptA, 1);
-    const annB = svg('text', { x: X1, y: endB[1] - 24, 'text-anchor': 'end', 'font-size': 22, fill: C.redInk, 'font-weight': 600 }, g);
-    annB.textContent = 'sigue insistiendo';
-    const annA = svg('text', { x: X1, y: endA[1] + 42, 'text-anchor': 'end', 'font-size': 22, fill: C.ink, 'font-weight': 600 }, g);
-    annA.textContent = 'se apaga rápido';
-    fadeIn(annB, 15.2, 0.5, { y: 8 });
-    fadeIn(annA, 14.6, 0.5, { y: -8 });
+    const headB = svg('circle', { r: 9, fill: C.red, opacity: 0 }, g);
+
+    // lectura final: etiquetas directas y la llave de "todo esto, sin premio"
+    const endB = at(ptB, 1), endA = at(ptA, 1), cutB = at(ptB, UE);
+    const annB = svg('text', { x: X1, y: endB[1] - 22, 'text-anchor': 'end', 'font-size': 28, fill: C.redInk, 'font-weight': 600 }, g);
+    annB.textContent = 'sigue picoteando';
+    const annA = svg('text', { x: X1, y: endA[1] + 42, 'text-anchor': 'end', 'font-size': 28, fill: C.ink, 'font-weight': 600 }, g);
+    annA.textContent = 'deja de picotear';
+    fadeIn(annA, B0 + 0.75, 0.5, { y: -8 });
+    fadeIn(annB, B1 - 0.25, 0.5, { y: 8 });
+    const bx = X1 + 18;
+    // guía punteada: hasta dónde había llegado cuando se retiró el premio
+    const guide = svg('line', { x1: xE, y1: cutB[1], x2: bx, y2: cutB[1], stroke: C.red, 'stroke-width': 2, 'stroke-dasharray': '7 7', 'stroke-opacity': 0.8 }, g);
+    tl.fromTo(guide, { attr: { x2: xE } }, { attr: { x2: bx }, duration: 0.45, ease: 'power2.out', immediateRender: true }, B1 + 0.02);
+    const brace = svg('path', { d: `M${bx - 10} ${cutB[1]} H${bx} V${endB[1]} H${bx - 10}`, fill: 'none', stroke: C.red, 'stroke-width': 4, 'stroke-linejoin': 'round' }, g);
+    const BL = (cutB[1] - endB[1]) + 20;
+    tl.fromTo(brace, { strokeDasharray: BL, strokeDashoffset: BL }, { strokeDashoffset: 0, duration: 0.45, ease: 'power2.inOut', immediateRender: true }, B1 + 0.3);
+    tl.fromTo(brace, { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: true }, B1 + 0.3);
+    const braceLab = svg('text', { x: X1 - 6, y: cutB[1] + 46, 'text-anchor': 'end', style: 'font-family: "Instrument Serif"; font-style: italic', 'font-size': 42, fill: C.redInk }, g);
+    braceLab.textContent = 'todo esto, sin premio ↑';
+    fadeIn(braceLab, B1 + 0.5, 0.5, { y: 8 });
 
     procs.push(t => {
       if (t < T.s3 - 0.1 || t > T.s4 + 0.1) return;
-      const u = prog(t, D0, D1 - D0);
+      const u = uAt(t);
       const k = Math.floor(u * N);
-      const cut = (pts) => { const a = pts.slice(0, k + 1); if (u > 0) a.push(at(pts, u)); return a; };
-      pathA.setAttribute('d', u > 0 ? pathFrom(cut(ptA)) : '');
-      pathB.setAttribute('d', u > 0 ? pathFrom(cut(ptB)) : '');
+      const cutTo = (pts) => { const a = pts.slice(0, k + 1); if (u > 0) a.push(at(pts, u)); return a; };
+      pathA.setAttribute('d', u > 0 ? pathFrom(cutTo(ptA)) : '');
+      pathB.setAttribute('d', u > 0 ? pathFrom(cutTo(ptB)) : '');
       const hA = at(ptA, u), hB = at(ptB, u);
-      const vis = u > 0 && u < 1 ? 1 : (u >= 1 ? Math.max(0, 1 - (t - D1) / 0.4) : 0);
+      const vis = u > 0 && u < 1 ? 1 : (u >= 1 ? Math.max(0, 1 - (t - B1) / 0.4) : 0);
       headA.setAttribute('cx', hA[0]); headA.setAttribute('cy', hA[1]); headA.setAttribute('opacity', vis);
       headB.setAttribute('cx', hB[0]); headB.setAttribute('cy', hB[1]); headB.setAttribute('opacity', vis);
       for (const p of [...pA, ...pB]) p.e.setAttribute('opacity', u >= p.u ? 1 : 0);

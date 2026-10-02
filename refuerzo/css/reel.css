@@ -108,9 +108,9 @@ body { -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; 
 /* ---------- S3 laboratorio ---------- */
 #s3 .figlabel { position: absolute; left: var(--m); top: 392px; font: 600 24px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
 #s3 .figsub { position: absolute; left: var(--m); top: 432px; font: 400 23px/1 var(--mono); color: var(--graphite); letter-spacing: .02em; }
-#chart { position: absolute; left: var(--m); top: 488px; overflow: visible; }
+#chart { position: absolute; left: var(--m); top: 474px; overflow: visible; }
 #chart text { font-family: var(--mono); }
-#s3 .caption { position: absolute; left: var(--m); top: 1058px; font-size: 102px; line-height: .98; }
+#s3 .caption { position: absolute; left: var(--m); top: 1160px; font-size: 112px; line-height: .96; }
 
 /* ---------- S4 tragamonedas ---------- */
 #s4 .kicker { top: 426px; color: var(--ash); }
@@ -127,7 +127,7 @@ body { -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; 
 
 /* ---------- S5 / S6 vínculos ---------- */
 #s5 .head, #s6 .head { position: absolute; left: var(--m); top: 384px; font-size: 124px; line-height: .95; }
-#s6 .head { font-size: 116px; }
+#s6 .vnote { top: 770px; color: rgba(235,228,215,.78); }
 .graph { position: absolute; left: var(--m); top: 780px; overflow: visible; }
 .graph text { font-family: var(--mono); }
 #s5 .caption { position: absolute; left: var(--m); top: 1222px; font-size: 100px; line-height: .98; }

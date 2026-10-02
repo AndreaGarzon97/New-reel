@@ -183,6 +183,14 @@ def wood(f=900, vel=0.6):
     return x * vel * 0.55
 
 
+def peck(f=2800, vel=0.15, body=1000):
+    """Picoteo: clic seco y muy corto, distinto del 'clac' del premio."""
+    t = tvec(0.025)
+    n = sos_filter(rng.standard_normal(len(t)), 'band', (f * 0.75, f * 1.45)) * np.exp(-t * 1100)
+    x = n + 0.45 * np.sin(2 * np.pi * body * t) * np.exp(-t * 260)
+    return x * vel
+
+
 def noise_sweep(dur, f0, f1, q=1.6, shape=None, vel=1.0):
     """Ruido filtrado con un pasabanda que barre de f0 a f1 (filtro de estado variable)."""
     n = int(dur * SR)
@@ -333,7 +341,7 @@ arp(['D4', 'F4', 'A4', 'C5'], 10.8, T_EXT, 0.2, p=1.0, vel=0.3, seed=6, bright=0
 for k in range(20):                                   # cronómetro del laboratorio
     t = 10.4 + k * 0.4
     if t < 18.3:
-        perc.add(tick(3400 if k % 2 == 0 else 2900, 0.16, ring=0.25), t, pan=0.35)
+        perc.add(tick(3400 if k % 2 == 0 else 2900, 0.07, ring=0.25), t, pan=0.35)
 for c in cues('pipA'):
     sfx.add(wood(820, 0.38), c['t'], pan=-0.25)
 for c in cues('pipB'):
@@ -341,14 +349,27 @@ for c in cues('pipB'):
     sfx.add(bell(hz('A6'), 0.9, 0.16), c['t'], pan=0.3)
 for c in cues('pen'):
     sfx.add(scratch(c['d'], 0.42), c['t'], pan=-0.05)
+if not os.environ.get('NO_PECKS'):                 # picoteos; NO_PECKS=1 genera la versión sin ellos
+    for name, f, body, pan in (('peckB', 3100, 1150, 0.3), ('peckA', 2300, 820, -0.3)):
+        k = 0
+        for c in cues(name):
+            if c.get('pre'):
+                k += 1
+                if k % 5:
+                    continue
+                v = 0.09
+            else:
+                v = 0.25
+            sfx.add(peck(f * rng.uniform(0.95, 1.05), v * rng.uniform(0.85, 1.1), body), c['t'], pan=pan)
 low.add(kick(60, 30, 1.2, 3.2, 0.7, 0.02), T_EXT)                     # se corta el premio
 low.add(punch(0.9, 150, 70), T_EXT)
-chord(['D3', 'A3'], T_EXT, 15.5, vel=0.22, a=0.05, r=1.2, bright=0.25, bass='D2', bass_vel=0.3)
-chord(['Bb2', 'F3', 'A3', 'D4'], 15.6, 17.2, vel=0.38, a=0.25, bass='Bb1', bass_vel=0.45)
+T_CAP = [c['t'] for c in cues('hit') if 15 < c['t'] < 17][0]           # aparece la frase del laboratorio
+chord(['D3', 'A3'], T_EXT, T_CAP - 0.1, vel=0.22, a=0.05, r=1.2, bright=0.25, bass='D2', bass_vel=0.3)
+chord(['Bb2', 'F3', 'A3', 'D4'], T_CAP, 17.2, vel=0.38, a=0.25, bass='Bb1', bass_vel=0.45)
 chord(['C3', 'G3', 'D4', 'E4'], 17.2, 18.3, vel=0.38, a=0.3, r=0.25, bass='C2', bass_vel=0.45)
-keys.add(ep(hz('F4'), 2.6, 0.45), 15.6, pan=-0.1)
-keys.add(ep(hz('A4'), 2.6, 0.4), 15.6, pan=0.1)
-keys.add(ep(hz('D5'), 2.6, 0.35), 15.6, pan=0.2)
+keys.add(ep(hz('F4'), 2.6, 0.45), T_CAP, pan=-0.1)
+keys.add(ep(hz('A4'), 2.6, 0.4), T_CAP, pan=0.1)
+keys.add(ep(hz('D5'), 2.6, 0.35), T_CAP, pan=0.2)
 
 # --- S4 · tragamonedas (18,4–24) ---------------------------------------------
 low.add(kick(55, 32, 0.9, 5, 0.85, 0.2), 18.4)
