@@ -1,3 +1,5 @@
 __pycache__/
 reel/music.wav
 out/hq/
+refuerzo/node_modules/
+refuerzo/audio/score.wav

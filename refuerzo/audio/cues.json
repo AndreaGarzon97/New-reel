@@ -1,0 +1,421 @@
+{
+ "T": {
+  "s1": 0,
+  "s2": 4,
+  "s3": 10.4,
+  "s4": 18.4,
+  "s5": 24.4,
+  "s6": 33.6,
+  "s6b": 40,
+  "s7": 47.2,
+  "s8": 54.4,
+  "end": 60
+ },
+ "dur": 60,
+ "cues": [
+  {
+   "t": 0.05,
+   "type": "hit",
+   "v": 0.7
+  },
+  {
+   "t": 1.3,
+   "type": "scribble",
+   "d": 0.55
+  },
+  {
+   "t": 1.55,
+   "type": "bubble_off"
+  },
+  {
+   "t": 2.25,
+   "type": "bubble_on"
+  },
+  {
+   "t": 2.9,
+   "type": "bubble_off"
+  },
+  {
+   "t": 3.3,
+   "type": "bubble_on"
+  },
+  {
+   "t": 3.45,
+   "type": "whoosh"
+  },
+  {
+   "t": 4.12,
+   "type": "hit",
+   "v": 0.5
+  },
+  {
+   "t": 4.4289,
+   "type": "flick"
+  },
+  {
+   "t": 4.4331,
+   "type": "flick"
+  },
+  {
+   "t": 4.4686,
+   "type": "flick"
+  },
+  {
+   "t": 4.6015,
+   "type": "flick"
+  },
+  {
+   "t": 4.7179,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 4.7988,
+   "type": "flick"
+  },
+  {
+   "t": 4.817,
+   "type": "flick"
+  },
+  {
+   "t": 4.825,
+   "type": "flick"
+  },
+  {
+   "t": 4.8776,
+   "type": "flick"
+  },
+  {
+   "t": 4.8847,
+   "type": "flick"
+  },
+  {
+   "t": 4.9497,
+   "type": "flick"
+  },
+  {
+   "t": 4.992,
+   "type": "flick"
+  },
+  {
+   "t": 4.9934,
+   "type": "flick"
+  },
+  {
+   "t": 5.0742,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.0857,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.1335,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.1802,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.1975,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.2798,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.3708,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.4266,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.4607,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.5191,
+   "type": "flick",
+   "v": 0.6
+  },
+  {
+   "t": 5.75,
+   "type": "tick",
+   "v": 0.6
+  },
+  {
+   "t": 7.45,
+   "type": "tick",
+   "v": 0.6
+  },
+  {
+   "t": 9.8,
+   "type": "whoosh",
+   "v": 0.6
+  },
+  {
+   "t": 11.05,
+   "type": "pen",
+   "d": 4.6
+  },
+  {
+   "t": 11.211,
+   "type": "pipB"
+  },
+  {
+   "t": 11.234,
+   "type": "pipA"
+  },
+  {
+   "t": 11.418,
+   "type": "pipB"
+  },
+  {
+   "t": 11.4548,
+   "type": "pipA"
+  },
+  {
+   "t": 11.6756,
+   "type": "pipA"
+  },
+  {
+   "t": 11.832,
+   "type": "pipB"
+  },
+  {
+   "t": 11.8964,
+   "type": "pipA"
+  },
+  {
+   "t": 11.993,
+   "type": "pipB"
+  },
+  {
+   "t": 12.1172,
+   "type": "pipA"
+  },
+  {
+   "t": 12.131,
+   "type": "pipB"
+  },
+  {
+   "t": 12.338,
+   "type": "pipA"
+  },
+  {
+   "t": 12.5588,
+   "type": "pipA"
+  },
+  {
+   "t": 12.568,
+   "type": "pipB"
+  },
+  {
+   "t": 12.7796,
+   "type": "pipA"
+  },
+  {
+   "t": 12.913,
+   "type": "pipB"
+  },
+  {
+   "t": 13.0004,
+   "type": "pipA"
+  },
+  {
+   "t": 13.074,
+   "type": "pipB"
+  },
+  {
+   "t": 13.2212,
+   "type": "pipA"
+  },
+  {
+   "t": 13.419,
+   "type": "pipB"
+  },
+  {
+   "t": 13.442,
+   "type": "pipA"
+  },
+  {
+   "t": 13.626,
+   "type": "extinction"
+  },
+  {
+   "t": 15.6,
+   "type": "hit",
+   "v": 0.8
+  },
+  {
+   "t": 18.4,
+   "type": "cut"
+  },
+  {
+   "t": 18.6,
+   "type": "slot_spin",
+   "d": 1.7199999999999989
+  },
+  {
+   "t": 19.35,
+   "type": "slot_stop",
+   "i": 0,
+   "sym": "heart"
+  },
+  {
+   "t": 19.74,
+   "type": "slot_stop",
+   "i": 1,
+   "sym": "heart"
+  },
+  {
+   "t": 20.32,
+   "type": "slot_stop",
+   "i": 2,
+   "sym": "cross"
+  },
+  {
+   "t": 20.34,
+   "type": "nearmiss"
+  },
+  {
+   "t": 20.62,
+   "type": "hit",
+   "v": 0.7
+  },
+  {
+   "t": 23.85,
+   "type": "whoosh"
+  },
+  {
+   "t": 24.5,
+   "type": "hit",
+   "v": 0.6
+  },
+  {
+   "t": 25.55,
+   "type": "base_line",
+   "d": 1.2
+  },
+  {
+   "t": 26.75,
+   "type": "wave",
+   "d": 2.1999999999999993
+  },
+  {
+   "t": 29.4,
+   "type": "hit",
+   "v": 0.6
+  },
+  {
+   "t": 33.05,
+   "type": "whoosh",
+   "v": 0.8
+  },
+  {
+   "t": 33.75,
+   "type": "hit",
+   "v": 0.8,
+   "dark": 1
+  },
+  {
+   "t": 34.35,
+   "type": "toxic_line",
+   "d": 4.600000000000001
+  },
+  {
+   "t": 35.0131,
+   "type": "peak",
+   "word": "cariño"
+  },
+  {
+   "t": 35.4119,
+   "type": "valley",
+   "word": "frialdad"
+  },
+  {
+   "t": 36.1734,
+   "type": "peak",
+   "word": "atención"
+  },
+  {
+   "t": 36.5878,
+   "type": "valley",
+   "word": "silencio"
+  },
+  {
+   "t": 37.4581,
+   "type": "peak",
+   "word": "promesas"
+  },
+  {
+   "t": 37.8932,
+   "type": "valley",
+   "word": "desprecio"
+  },
+  {
+   "t": 40.35,
+   "type": "tension"
+  },
+  {
+   "t": 41.1983,
+   "type": "explosion"
+  },
+  {
+   "t": 41.9017,
+   "type": "honeymoon"
+  },
+  {
+   "t": 42.5517,
+   "type": "tension"
+  },
+  {
+   "t": 42.785,
+   "type": "explosion"
+  },
+  {
+   "t": 43.35,
+   "type": "honeymoon"
+  },
+  {
+   "t": 46.9,
+   "type": "whoosh",
+   "v": 1
+  },
+  {
+   "t": 47.65,
+   "type": "healthy_tone"
+  },
+  {
+   "t": 49.25,
+   "type": "violent_tone"
+  },
+  {
+   "t": 54.15,
+   "type": "whoosh",
+   "v": 0.7
+  },
+  {
+   "t": 54.8,
+   "type": "final_hit"
+  },
+  {
+   "t": 56.45,
+   "type": "tick",
+   "v": 0.8
+  }
+ ]
+}
