@@ -146,12 +146,15 @@ def bell(f, dur=2.8, vel=0.6, ratio=3.5):
     return x * e * vel * 0.35
 
 
-def kick(f0=90, f1=40, dur=0.5, decay=8, vel=1.0, click=0.15):
+def kick(f0=90, f1=40, dur=0.5, decay=8, vel=1.0, click=0.15, body=0.95):
     t = tvec(dur)
     f = f1 + (f0 - f1) * np.exp(-t * 28)
     x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * decay)
     n = sos_filter(rng.standard_normal(len(t)), 'low', 2500) * np.exp(-t * 300) * click
-    x = np.tanh(1.6 * (x + n))
+    # cuerpo audible en parlantes de celular: armónicos por saturación + golpe de fieltro (150–700 Hz)
+    felt = sos_filter(rng.standard_normal(len(t)), 'band', (150, 700)) * np.exp(-t * 34) * body
+    tone = np.sin(2 * np.pi * f1 * 2.6 * t) * np.exp(-t * 16) * body * 0.6
+    x = np.tanh(2.4 * (x + n)) * 0.7 + felt + tone
     return x * np.minimum(1, t / 0.002) * vel * 0.8
 
 
@@ -213,18 +216,29 @@ def scratch(dur, vel=0.3):
     return x * np.clip(m, 0, 1.0) * e * vel * 0.05
 
 
+def punch(vel=1.0, f0=180, f1=88):
+    """Golpe con cuerpo en 100–1200 Hz: lo que un parlante de celular sí reproduce."""
+    t = tvec(0.45)
+    f = f1 + (f0 - f1) * np.exp(-t * 30)
+    tone = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 11)
+    nz = sos_filter(rng.standard_normal(len(t)), 'band', (200, 1200)) * np.exp(-t * 22) * 0.8
+    return np.tanh(2.0 * (tone + nz)) * np.minimum(1, t / 0.0015) * vel * 0.7
+
+
 def boom(vel=1.0):
     t = tvec(3.0)
     f = 26 + 60 * np.exp(-t * 7)
     x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 1.6)
     n = sos_filter(rng.standard_normal(len(t)), 'low', 1400) * np.exp(-t * 4.5)
     crack = sos_filter(rng.standard_normal(len(t)), 'band', (1200, 4000)) * np.exp(-t * 26) * 0.22
-    y = np.tanh(2.2 * (x * 0.9 + n * 0.7 + crack))
+    mid = sos_filter(rng.standard_normal(len(t)), 'band', (120, 900)) * np.exp(-t * 5.5) * 0.9
+    thud = np.sin(2 * np.pi * np.cumsum(62 + 90 * np.exp(-t * 12)) / SR) * np.exp(-t * 4) * 0.7
+    y = np.tanh(2.6 * (x * 0.55 + n * 0.7 + crack + mid * 1.4 + thud))
     return y * vel * 0.85
 
 
 def riser(dur, vel=0.6, f0=200, f1=1600):
-    n_sig = noise_sweep(dur, f0 * 2, f1 * 4, q=2.5, shape=lambda u: u ** 2.2, vel=1.0)
+    n_sig = noise_sweep(dur, f0 * 2, f1 * 2.5, q=2.5, shape=lambda u: u ** 2.4, vel=1.0)
     t = tvec(dur)
     f = f0 * (f1 / f0) ** (t / dur)
     tone = np.sin(2 * np.pi * np.cumsum(f) / SR) * (t / dur) ** 2.5 * 0.25
@@ -328,6 +342,7 @@ for c in cues('pipB'):
 for c in cues('pen'):
     sfx.add(scratch(c['d'], 0.42), c['t'], pan=-0.05)
 low.add(kick(60, 30, 1.2, 3.2, 0.7, 0.02), T_EXT)                     # se corta el premio
+low.add(punch(0.9, 150, 70), T_EXT)
 chord(['D3', 'A3'], T_EXT, 15.5, vel=0.22, a=0.05, r=1.2, bright=0.25, bass='D2', bass_vel=0.3)
 chord(['Bb2', 'F3', 'A3', 'D4'], 15.6, 17.2, vel=0.38, a=0.25, bass='Bb1', bass_vel=0.45)
 chord(['C3', 'G3', 'D4', 'E4'], 17.2, 18.3, vel=0.38, a=0.3, r=0.25, bass='C2', bass_vel=0.45)
@@ -337,6 +352,7 @@ keys.add(ep(hz('D5'), 2.6, 0.35), 15.6, pan=0.2)
 
 # --- S4 · tragamonedas (18,4–24) ---------------------------------------------
 low.add(kick(55, 32, 0.9, 5, 0.85, 0.2), 18.4)
+low.add(punch(0.6), 18.4)
 spin = cues('slot_spin')[0]
 stops = [c['t'] for c in cues('slot_stop')]
 TS = spin['t']
@@ -352,10 +368,11 @@ for i, te in enumerate(stops):                       # matraca de cada rodillo
             last = int(pos)
             sfx.add(tick(1700 + 250 * i, 0.12, 0.03, ring=0.15), t, pan=(i - 1) * 0.5)
         t += 24 / SR
-sfx.add(riser(stops[-1] - TS, 0.28, 180, 900), TS)
+sfx.add(riser(stops[-1] - TS, 0.2, 180, 900), TS)
 for c in cues('slot_stop'):
     sfx.add(wood(420, 0.7), c['t'], pan=(c['i'] - 1) * 0.5)
     low.add(kick(80, 45, 0.3, 14, 0.35, 0.1), c['t'])
+    low.add(punch(0.32, 220, 120), c['t'])
     if c['sym'] == 'heart':
         verb_fx.add(bell(hz('E6') if c['i'] == 0 else hz('B6'), 1.6, 0.42), c['t'], pan=(c['i'] - 1) * 0.5)
 for c in cues('nearmiss'):
@@ -398,6 +415,7 @@ for c in cues('peak'):                                 # premio: dulce y breve
     chord(['F4', 'A4', 'C5'], c['t'], c['t'] + 0.35, vel=0.35, a=0.06, r=0.8, bright=1.3, spread=0.8)
 for c in cues('valley'):                               # castigo: golpe sordo y disonancia
     low.add(kick(65, 30, 1.0, 4.0, 0.75, 0.25), c['t'])
+    low.add(punch(1.0, 160, 72), c['t'])
     chord(['D2', 'Eb3', 'Ab3'], c['t'], c['t'] + 0.3, vel=0.42, a=0.01, r=0.9, bright=0.6)
 irregular = [34.0, 34.62, 35.05, 35.42, 36.3, 36.6, 37.5, 37.92, 38.3, 39.0, 39.25]
 for t in irregular:
@@ -411,11 +429,12 @@ honey = [c['t'] for c in cues('honeymoon')]
 chord(['D2', 'Eb2'], 40.0, honey[0] - 0.05, vel=0.3, a=1.0, r=0.35, bright=0.35, bass='D1', bass_vel=0.35)
 chord(['D2', 'Eb2'], tens[1] - 0.1, honey[1] - 0.05, vel=0.3, a=0.3, r=0.35, bright=0.35, bass='D1', bass_vel=0.3)
 for k, (ta, tb) in enumerate(zip(tens, expl)):
-    sfx.add(riser(tb - ta + 0.02, 0.5 if k == 0 else 0.35, 140, 1300), ta)
+    sfx.add(riser(tb - ta + 0.02, 0.26 if k == 0 else 0.2, 140, 1300), ta)
     for j in range(int((tb - ta) / 0.1)):              # el pulso se acelera
         perc.add(tick(1900, 0.06 + 0.05 * j / 10, ring=0.3), ta + j * 0.1 * (1 - 0.25 * j / 10), pan=0.2)
 for t in expl:
-    low.add(boom(1.0), t)
+    low.add(boom(1.35), t)
+    low.add(punch(1.0, 170, 60), t)
     verb_fx.add(noise_sweep(1.2, 3000, 200, q=0.9, shape=lambda u: np.exp(-u * 4), vel=0.45), t)
 for k, t in enumerate(honey):
     last = k == len(honey) - 1
@@ -449,6 +468,7 @@ for t in (50.35, 51.0, 51.4, 52.6, 52.85, 53.5):       # golpes irregulares, apa
 # --- S8 · cierre (54,4–60) -------------------------------------------------------
 t_f = cues('final_hit')[0]['t']
 low.add(kick(62, 30, 1.4, 3.0, 0.6, 0.05), t_f)
+low.add(punch(0.45, 150, 75), t_f)
 chord(['D3', 'A3', 'E4', 'F4'], t_f, 57.2, vel=0.36, a=0.4, r=1.6, bright=0.8, bass='D2', bass_vel=0.45)
 chord(['Bb2', 'F3', 'A3', 'D4'], 57.2, 58.6, vel=0.32, a=0.8, r=1.6, bright=0.7, bass='Bb1', bass_vel=0.38)
 for t, nm, v in ((t_f, 'D4', 0.4), (t_f, 'A4', 0.38), (55.6, 'A4', 0.34), (56.4, 'F4', 0.3), (57.2, 'E4', 0.3),
@@ -472,7 +492,18 @@ perc.fx(Pedalboard([HighpassFilter(500), Reverb(room_size=0.3, damping=0.6, wet_
 sfx.fx(Pedalboard([HighpassFilter(80), Reverb(room_size=0.45, damping=0.5, wet_level=0.16, dry_level=0.9, width=0.9)]))
 verb_fx.fx(Pedalboard([HighpassFilter(200), Reverb(room_size=0.93, damping=0.4, wet_level=0.45, dry_level=0.6, width=1.0)]))
 
-mix = (pad.x * 0.8 + keys.x * 1.1 + low.x * 0.62 + perc.x * 0.9 + sfx.x * 0.95 + verb_fx.x * 1.0)[:, :N]
+if os.environ.get('DUMP_BUSES'):
+    for b in (pad, keys, low, perc, sfx, verb_fx):
+        sf.write(os.path.join(os.environ['DUMP_BUSES'], b.name + '.wav'), b.x[:, :N].T.astype(np.float32), SR)
+# "ducking": la música se corre unos dB en cada golpe para que el impacto se oiga también en un celular
+impacts = [c['t'] for c in CUES if c['type'] in ('explosion', 'valley', 'extinction', 'cut', 'slot_stop', 'final_hit', 'hit')]
+tt = np.arange(pad.x.shape[1]) / SR
+duck = np.ones_like(tt)
+for ti in impacts:
+    m = tt >= ti - 0.01
+    duck[m] -= 0.5 * np.exp(-(tt[m] - ti) / 0.32) * np.clip((tt[m] - ti + 0.01) / 0.01, 0, 1)
+duck = np.clip(duck, 0.45, 1)
+mix = (pad.x * 0.7 * duck + keys.x * 1.05 * duck + low.x * 0.7 + perc.x * 0.9 + sfx.x * 0.95 + verb_fx.x * 1.0 * duck)[:, :N]
 
 # fundido final (el reel vuelve a empezar en silencio)
 t = np.arange(N) / SR
@@ -482,8 +513,8 @@ mix *= np.clip(t / 0.01, 0, 1)
 master = Pedalboard([HighpassFilter(35), LowShelfFilter(cutoff_frequency_hz=120, gain_db=-4.5, q=0.7),
                      PeakFilter(cutoff_frequency_hz=2600, gain_db=3.0, q=0.7),
                      HighShelfFilter(cutoff_frequency_hz=7000, gain_db=-1.0, q=0.7), Distortion(drive_db=1.0),
-                     Compressor(threshold_db=-20, ratio=2.2, attack_ms=20, release_ms=250),
-                     Limiter(threshold_db=-3.0, release_ms=120)])
+                     Compressor(threshold_db=-16, ratio=1.8, attack_ms=25, release_ms=250),
+                     Limiter(threshold_db=-1.5, release_ms=120)])
 mix = master(mix.astype(np.float32), SR).astype(np.float64)
 
 meter = pyln.Meter(SR)

@@ -14,8 +14,8 @@ python3 audio/score.py                                       # -> audio/score.wa
 SEG_DIR="$TMP" node render.cjs video "$TMP/video_raw.mkv" "${JOBS:-4}"
 
 # grano fílmico muy suave sólo en luminancia
-VF="format=yuv444p,noise=c0s=5:c0f=t+u,format=yuv420p"
-X264=(-c:v libx264 -preset slow -crf 17 -profile:v high -level 4.2 -r 30 -g 60 -bf 2 -movflags +faststart)
+VF="format=yuv444p,noise=c0s=4:c0f=t+u,format=yuv420p"
+X264=(-c:v libx264 -preset slow -crf 20 -profile:v high -level 4.2 -r 30 -g 60 -bf 2 -movflags +faststart)
 
 ffmpeg -hide_banner -loglevel error -y -i "$TMP/video_raw.mkv" -i audio/score.wav -map 0:v -map 1:a \
   -vf "$VF" "${X264[@]}" -c:a aac -b:a 256k -ar 48000 -shortest "$OUT/reel_refuerzo_intermitente.mp4"
