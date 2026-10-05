@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Evitación · Reel</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+
+  <!-- Bordes de tinta irregulares que "hierven" a 8 fps -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence class="boil" type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1"/>
+        <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="roughSoft" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence class="boil" type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="1"/>
+        <feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="inkType" x="-2%" y="-2%" width="104%" height="104%">
+        <feTurbulence class="boil" type="fractalNoise" baseFrequency="0.09" numOctaves="1" seed="1"/>
+        <feDisplacementMap in="SourceGraphic" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ============ S1 · GANCHO (0 – 5 s) ============ -->
+  <section id="s1" class="scene bg-noche" data-start="0" data-end="5.05">
+    <div class="cam">
+      <div class="kicker mono">
+        <span class="c-lima"><i class="sq"></i><span class="c-hueso">Evitación</span></span>
+        <span class="c-hueso" style="opacity:.75">Refuerzo negativo</span>
+      </div>
+
+      <div id="hook1" class="block disp" style="top:345px;font-size:232px" data-out="2.32" data-dout="0.32">
+        <div><span class="w0">Cancelaste</span></div>
+        <div><span class="w0">el</span> <span class="w0" id="hPlan">plan.</span></div>
+      </div>
+      <div id="hook1b" class="block serif" style="top:790px;font-size:128px" data-fx="words" data-in="0.92" data-st="0.17" data-out="2.36" data-dout="0.32">y sentiste <em class="c-lima">alivio.</em></div>
+
+      <div id="meter" class="mono" data-out="2.4" data-dout="0.3">
+        <div class="lbl"><span>Malestar</span><span id="meterNum">8 / 10</span></div>
+        <div class="row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div id="hook2" class="block disp" style="top:360px;font-size:232px">
+        <div data-fx="words" data-in="2.42" data-st="0.2">Ese alivio</div>
+        <div data-fx="words" data-in="2.82" data-st="0.18">te está</div>
+        <div style="font-size:.7em;margin-top:.1em" data-fx="words" data-in="3.2"><em class="c-lima" id="hEntr" style="line-height:.95">entrenando.</em></div>
+      </div>
+
+      <svg class="full">
+        <path class="stroke" data-fx="draw" data-in="0.3" data-d="0.26" data-strike="#hPlan" data-seed="3"
+              stroke="#DCE24B" stroke-width="20" filter="url(#roughSoft)" data-out="2.32" data-dout="0.3"/>
+        <path class="stroke" data-fx="draw" data-in="3.75" data-d="0.42" data-under="#hEntr" data-seed="7"
+              stroke="#ECE7DC" stroke-width="10" filter="url(#roughSoft)"/>
+      </svg>
+      <div class="tag mono">@lic.andreagarzon</div>
+    </div>
+  </section>
+
+  <!-- ============ S2 · QUÉ ES (5 – 12,5 s) ============ -->
+  <section id="s2" class="scene bg-hueso" data-start="4.62" data-end="12.62">
+    <div class="cam">
+      <div class="kicker mono">
+        <span class="c-cobalto"><i class="sq"></i><span class="c-noche">Evitación</span></span>
+        <span style="opacity:.7">Qué es</span>
+      </div>
+      <div class="block disp" style="top:330px">
+        <div class="ln" style="font-size:112px"><span class="in" data-in="5.05">Se llama</span></div>
+        <div class="ln c-cobalto" style="font-size:262px;margin-top:-.02em"><span class="in" data-in="5.22">refuerzo</span></div>
+        <div class="ln" style="font-size:222px;margin-top:-.06em"><span class="in" data-in="5.42"><em id="neg">negativo.</em></span></div>
+      </div>
+
+      <div class="defrow" style="top:975px">
+        <div class="mono c-cobalto"><span class="in" data-fx="fade" data-in="6.9" style="display:inline-block">Refuerzo</span></div>
+        <div class="serif" style="font-size:72px" data-fx="words" data-in="7.0" data-st="0.1">la conducta se repite.</div>
+      </div>
+      <div class="defrow" style="top:1108px">
+        <div class="mono c-cobalto"><span class="in" data-fx="fade" data-in="8.45" style="display:inline-block">Negativo</span></div>
+        <div class="serif" style="font-size:72px">
+          <div data-fx="words" data-in="8.55" data-st="0.1">porque te <em>saca</em> algo:</div>
+          <div data-fx="words" data-in="9.25"><span class="hl" data-mark="9.45" data-md="0.38"><em>el malestar.</em></span></div>
+        </div>
+      </div>
+
+      <div class="abs hand c-cobalto" style="left:548px;top:338px;font-size:88px;transform:rotate(-4deg)">
+        <span class="in" data-fx="write" data-in="6.05" data-d="0.6" style="display:inline-block">no es un castigo</span></div>
+      <svg class="full">
+        <path class="stroke" data-fx="draw" data-in="6.6" data-d="0.4" data-arrow="958,452 905,690" data-bend="-38" data-seed="5"
+              stroke="#2A3EA5" stroke-width="6" filter="url(#roughSoft)"/>
+      </svg>
+      <div class="tag mono">@lic.andreagarzon</div>
+    </div>
+  </section>
+
+  <!-- ============ S3–S5 · LA CURVA: HOY · LO QUE NO VES · MAÑANA (12,5 – 35 s) ============ -->
+  <section id="sG" class="scene bg-cobalto" data-start="12.0" data-end="35.05">
+    <div class="cam">
+      <div class="kicker mono">
+        <span class="c-lima"><i class="sq"></i><span class="c-hueso">Evitación</span></span>
+        <span style="opacity:.75" class="gk" data-fx="fade" data-in="12.6" data-out="19.85">Hoy</span>
+      </div>
+      <div class="kicker mono" style="justify-content:flex-end">
+        <span style="opacity:.75" data-fx="fade" data-in="20.1" data-out="27.35">Lo que no ves</span>
+      </div>
+      <div class="kicker mono" style="justify-content:flex-end">
+        <span style="opacity:.75" data-fx="fade" data-in="27.6">Mañana</span>
+      </div>
+
+      <!-- HOY -->
+      <div class="block disp" style="top:318px;font-size:236px">
+        <div class="ln"><span class="in" data-in="12.75" data-out="19.85">Hoy,</span></div>
+      </div>
+      <div class="block serif" style="top:560px;font-size:76px" data-fx="words" data-in="16.05" data-st="0.11" data-out="17.7">evitar baja el malestar <em class="c-lima">al toque.</em></div>
+      <div class="abs" style="left:90px;top:560px">
+        <div class="mono c-hueso" style="opacity:.8"><span class="in" data-fx="fade" data-in="17.85" data-out="19.85" style="display:inline-block">Y tu cerebro anota:</span></div>
+        <div class="hand c-lima" style="font-size:118px;margin-top:6px;transform:rotate(-2.5deg);transform-origin:0 50%">
+          <span class="in" data-fx="write" data-in="18.2" data-d="0.55" data-out="19.85" style="display:inline-block">"esto sirve".</span></div>
+      </div>
+
+      <!-- LO QUE NO VES -->
+      <div class="block disp" style="top:318px;font-size:178px">
+        <div class="ln"><span class="in" data-in="20.15" data-out="27.35">Lo que no ves:</span></div>
+      </div>
+      <div class="block serif" style="top:505px;font-size:70px" data-fx="words" data-in="21.1" data-st="0.1" data-out="24.05">la ansiedad sube, toca techo… <em class="c-lima">y baja sola.</em></div>
+      <div class="abs" style="left:90px;top:530px">
+        <div class="mono c-hueso" style="opacity:.8"><span class="in" data-fx="fade" data-in="24.3" data-out="27.35" style="display:inline-block">Pero tu cerebro anota:</span></div>
+        <div class="hand c-lima" style="font-size:118px;margin-top:6px;transform:rotate(-2.5deg);transform-origin:0 50%">
+          <span class="in" data-fx="write" data-in="24.7" data-d="0.8" data-out="27.35" style="display:inline-block">"zafé porque me fui".</span></div>
+      </div>
+
+      <!-- MAÑANA -->
+      <div class="block disp c-lima" style="top:318px;font-size:236px">
+        <div class="ln"><span class="in" data-in="27.75">Mañana,</span></div>
+      </div>
+      <div class="block serif" style="top:560px;font-size:76px" data-fx="words" data-in="28.55" data-st="0.11">la alarma suena <em>antes</em><br><em>y más fuerte.</em></div>
+
+      <!-- gráfico -->
+      <svg class="full" id="chart">
+        <g id="axes" class="stroke" stroke="#ECE7DC" filter="url(#roughSoft)">
+          <path id="axY" d="M150,1400 L150,800" stroke-width="4"/>
+          <path id="axX" d="M150,1400 L975,1400" stroke-width="4"/>
+          <path id="grid5" d="M150,1110 L975,1110" stroke-width="2" stroke-dasharray="4 14" opacity=".45"/>
+          <path id="grid10" d="M150,820 L975,820" stroke-width="2" stroke-dasharray="4 14" opacity=".45"/>
+        </g>
+        <g id="world">
+          <path id="ghost" class="stroke" stroke="#ECE7DC" stroke-width="7" stroke-dasharray="3 20" opacity=".9"/>
+          <path id="lineMain" class="stroke" stroke="#ECE7DC" stroke-width="10" filter="url(#roughSoft)"/>
+          <path id="drop1" class="stroke" stroke="#DCE24B" stroke-width="14" filter="url(#roughSoft)"/>
+          <path id="drop2" class="stroke" stroke="#DCE24B" stroke-width="14" filter="url(#roughSoft)"/>
+          <path id="drop3" class="stroke" stroke="#DCE24B" stroke-width="14" filter="url(#roughSoft)"/>
+          <path id="trend" class="stroke" stroke="#DCE24B" stroke-width="6" filter="url(#roughSoft)"/>
+          <circle id="head" r="13" fill="#ECE7DC"/>
+        </g>
+      </svg>
+      <div class="abs mono axisnum" style="left:96px;top:1385px;width:40px;text-align:right" data-fx="fade" data-in="12.8">0</div>
+      <div class="abs mono axisnum" style="left:96px;top:1095px;width:40px;text-align:right" data-fx="fade" data-in="12.85">5</div>
+      <div class="abs mono axisnum" style="left:84px;top:805px;width:52px;text-align:right" data-fx="fade" data-in="12.9">10</div>
+      <div class="abs mono" style="left:168px;top:778px;font-size:19px;opacity:.75" data-fx="fade" data-in="12.9">Malestar</div>
+      <div id="ticker" class="abs mono" style="font-size:22px;letter-spacing:.05em"></div>
+
+      <!-- capa de rótulos que se mueve con el gráfico -->
+      <div id="worldHtml" class="abs" style="left:0;top:0;width:1080px;height:1920px">
+        <div class="abs hand c-hueso" style="left:226px;top:1290px;font-size:64px;line-height:.82;transform:rotate(-9deg);transform-origin:0 50%">
+          <span class="in" data-fx="write" data-in="14.0" data-d="0.4" style="display:inline-block">se acerca</span><br>
+          <span class="in" data-fx="write" data-in="14.35" data-d="0.35" style="display:inline-block">el plan</span></div>
+        <div class="abs mono" id="stamp1" style="left:395px;top:850px;font-size:22px;padding:7px 12px 6px;border:3px solid var(--hueso);background:var(--cobalto)" data-fx="pop" data-in="15.5">Evitás</div>
+        <div class="abs hand c-lima" style="left:500px;top:1318px;font-size:96px;transform:rotate(-3deg)">
+          <span class="in" data-fx="write" data-in="15.95" data-d="0.45" style="display:inline-block">alivio</span></div>
+        <div class="abs hand c-hueso" style="left:560px;top:838px;font-size:72px;transform:rotate(-4deg)">
+          <span class="in" data-fx="write" data-in="21.1" data-d="0.6" data-out="27.6" style="display:inline-block">si te quedabas…</span></div>
+        <div class="abs mono" style="left:430px;top:1420px;font-size:20px" data-fx="fade" data-in="16.3">Hoy</div>
+        <div class="abs mono" id="lblM" style="left:1365px;top:1420px;font-size:20px" data-fx="fade" data-in="30.7">Mañana</div>
+        <div class="abs mono" style="left:1640px;top:1420px;font-size:20px" data-fx="fade" data-in="32.4">Después</div>
+        <div class="abs mono" id="stamp2" style="left:1345px;top:740px;font-size:22px;padding:7px 12px 6px;border:3px solid var(--hueso);background:var(--noche)" data-fx="pop" data-in="30.45">Evitás</div>
+        <div class="abs hand c-lima" style="left:1727px;top:724px;font-size:60px;line-height:.8;transform:rotate(-6deg)">
+          <span class="in" data-fx="write" data-in="32.35" data-d="0.25" style="display:inline-block">fuera</span><br>
+          <span class="in" data-fx="write" data-in="32.55" data-d="0.15" style="display:inline-block">de</span><br>
+          <span class="in" data-fx="write" data-in="32.68" data-d="0.3" style="display:inline-block">escala</span></div>
+      </div>
+      <div class="tag mono">@lic.andreagarzon</div>
+    </div>
+  </section>
+
+  <!-- ============ S6 · EL MUNDO SE ACHICA (35 – 41,25 s) ============ -->
+  <section id="s6" class="scene bg-hueso" data-start="35.0" data-end="41.62">
+    <div class="cam">
+      <div class="kicker mono">
+        <span class="c-cobalto"><i class="sq"></i><span class="c-noche">Evitación</span></span>
+        <span style="opacity:.7">El efecto</span>
+      </div>
+      <div class="block disp" style="top:318px;font-size:172px">
+        <div class="ln"><span class="in" data-in="35.15">Y cada vez</span></div>
+        <div class="ln"><span class="in" data-in="35.3">evitás <em class="c-cobalto">más.</em></span></div>
+      </div>
+      <div class="block serif" style="top:640px;font-size:70px" data-fx="words" data-in="39.35" data-st="0.12">Tu mundo <span class="hl" data-mark="39.75" data-md="0.4">se achica.</span></div>
+      <svg class="full" id="rings"></svg>
+      <div class="tag mono">@lic.andreagarzon</div>
+    </div>
+  </section>
+
+  <!-- ============ S7 · LA CUENTA (41,25 – 47,5 s) ============ -->
+  <section id="s7" class="scene bg-lima" data-start="41.2" data-end="47.62">
+    <div class="cam">
+      <div class="kicker mono">
+        <span><i class="sq c-cobalto"></i><span>Evitación</span></span>
+        <span style="opacity:.7">La cuenta</span>
+      </div>
+      <div class="block disp" style="top:318px;font-size:178px">
+        <div class="ln"><span class="in" data-in="41.65">Evitar es pagar</span></div>
+        <div class="ln"><span class="in" data-in="41.8">con <em class="c-cobalto">tarjeta.</em></span></div>
+      </div>
+      <div id="ticket">
+        <div id="ticketPaper">
+          <div class="mono r" style="font-size:22px;letter-spacing:.14em"><span>Resumen</span><span>Evitación</span></div>
+          <div class="hr"></div>
+          <div class="mono r tl"><span>Hoy · alivio</span><span>$ 0</span></div>
+          <div class="mono r tl"><span>Mañana · ansiedad</span><span>+ +</span></div>
+          <div class="mono r tl"><span>Intereses · miedo</span><span>+ + +</span></div>
+          <div class="mono r tl"><span>Cosas que dejás de hacer</span><span>+ 5</span></div>
+          <div class="hr"></div>
+          <div class="mono r tl" style="align-items:baseline"><span>Total</span><span class="big">más miedo</span></div>
+        </div>
+      </div>
+      <div class="block serif" style="top:1255px;font-size:68px">
+        <div data-fx="words" data-in="44.85" data-st="0.1">Hoy no duele.</div>
+        <div data-fx="words" data-in="45.6" data-st="0.1">El resumen llega <em class="c-cobalto">con intereses.</em></div>
+      </div>
+      <div class="tag mono">@lic.andreagarzon</div>
+    </div>
+  </section>
+
+  <!-- ============ S8 · QUÉ HACER (47,5 – 55 s) ============ -->
+  <section id="s8" class="scene bg-hueso" data-start="47.1" data-end="55.12">
+    <div class="cam">
+      <div class="kicker mono">
+        <span class="c-cobalto"><i class="sq"></i><span class="c-noche">Evitación</span></span>
+        <span style="opacity:.7">¿Y entonces?</span>
+      </div>
+      <div class="block disp" style="top:318px;font-size:150px">
+        <div class="ln"><span class="in" data-in="47.75">Andá con miedo,</span></div>
+        <div class="ln"><span class="in" data-in="47.9"><em class="c-cobalto">de a poco.</em></span></div>
+      </div>
+      <div class="block serif" style="top:690px;font-size:64px" data-fx="words" data-in="49.0" data-st="0.085">Quedate un ratito más de lo que te pide el miedo.</div>
+
+      <svg class="full" id="humpsSvg">
+        <g class="stroke" stroke="#0F111B" filter="url(#roughSoft)">
+          <path d="M150,1390 L960,1390" stroke-width="4" data-fx="draw" data-in="49.6" data-d="0.4"/>
+        </g>
+        <path id="humps" class="stroke" stroke="#2A3EA5" stroke-width="10" filter="url(#roughSoft)"/>
+        <path class="stroke" data-fx="draw" data-in="53.55" data-d="0.45" data-arrow="245,1010 838,1218" data-bend="-60" data-seed="21"
+              stroke="#0F111B" stroke-width="5" stroke-dasharray="2 13" filter="url(#roughSoft)"/>
+      </svg>
+      <div class="abs mono" style="left:205px;top:1410px;font-size:20px" data-fx="fade" data-in="50.2">1ª vez</div>
+      <div class="abs mono" style="left:410px;top:1410px;font-size:20px" data-fx="fade" data-in="51.0">2ª</div>
+      <div class="abs mono" style="left:612px;top:1410px;font-size:20px" data-fx="fade" data-in="51.8">3ª</div>
+      <div class="abs mono" style="left:812px;top:1410px;font-size:20px" data-fx="fade" data-in="52.6">4ª</div>
+      <div class="abs hand c-cobalto" style="left:445px;top:930px;font-size:78px;transform:rotate(-4deg)">
+        <span class="in" data-fx="write" data-in="53.2" data-d="0.6" style="display:inline-block">cada vez sube menos</span></div>
+      <div class="tag mono">@lic.andreagarzon</div>
+    </div>
+  </section>
+
+  <!-- ============ S9 · CIERRE (55 – 60 s) ============ -->
+  <section id="s9" class="scene bg-noche" data-start="54.62" data-end="60.01">
+    <div class="cam">
+      <div class="kicker mono">
+        <span class="c-lima"><i class="sq"></i><span class="c-hueso">Evitación</span></span>
+        <span style="opacity:.75">Para guardar</span>
+      </div>
+      <div class="block disp" style="top:320px;font-size:184px" data-out="59.72" data-dout="0.26">
+        <div data-fx="words" data-in="54.95" data-st="0.15">Evitar te</div>
+        <div data-fx="words" data-in="55.25" data-st="0.17">alivia <em class="c-lima">hoy</em></div>
+        <div style="margin-top:.05em" data-fx="words" data-in="56.0" data-st="0.17">y te <span id="achica">achica</span></div>
+        <div data-fx="words" data-in="56.42"><em>mañana.</em></div>
+      </div>
+      <div id="save" class="abs" style="left:90px;top:1060px;width:900px;display:flex;gap:28px;align-items:flex-start" data-out="59.72" data-dout="0.26">
+        <svg width="54" height="78" viewBox="0 0 54 78" style="flex:none;margin-top:6px" data-fx="pop" data-in="57.15">
+          <path d="M4,4 L50,4 L50,74 L27,56 L4,74 Z" fill="#DCE24B" filter="url(#roughSoft)"/>
+        </svg>
+        <div class="serif" style="font-size:62px" data-fx="words" data-in="57.25" data-st="0.08">Guardalo para la próxima vez que quieras cancelar.</div>
+      </div>
+      <div class="abs disp" style="left:90px;top:1300px;font-size:64px;font-stretch:80%;font-weight:760;display:flex;gap:22px;align-items:center" data-fx="fade" data-in="58.1" data-out="59.72" data-dout="0.26">
+        <i style="display:block;width:64px;height:5px;background:var(--lima)"></i>@lic.andreagarzon
+      </div>
+    </div>
+  </section>
+
+  <!-- texturas -->
+  <div class="overlay" id="paperTex"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain0.png)"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain1.png)"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain2.png)"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain3.png)"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain4.png)"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain5.png)"></div>
+  <div class="overlay" id="vignette"></div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

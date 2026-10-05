@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Evitación · Portada</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* todo lo importante entre y=240 y y=1680: entra en el recorte 3:4 de la grilla */
+  #cover { position: absolute; inset: 0; background: var(--cobalto); color: var(--hueso); }
+  #cover .kicker { top: 300px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="roughSoft" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+  <div id="cover">
+    <div class="kicker mono">
+      <span class="c-lima"><i class="sq"></i><span class="c-hueso">Evitación</span></span>
+      <span style="opacity:.8">Refuerzo negativo</span>
+    </div>
+    <div class="block disp" style="top:375px;font-size:170px">
+      <div>Evitar alivia</div>
+      <div><em class="c-lima">hoy</em> y empeora</div>
+      <div style="margin-top:.04em"><em>mañana.</em></div>
+    </div>
+    <svg class="full">
+      <g class="stroke" stroke="#ECE7DC" filter="url(#roughSoft)">
+        <path d="M150,1450 L960,1450" stroke-width="4"/>
+        <path d="M150,1450 L150,1030" stroke-width="4"/>
+      </g>
+      <path id="cl" class="stroke" stroke="#ECE7DC" stroke-width="10" filter="url(#roughSoft)"/>
+      <g id="dr" class="stroke" stroke="#DCE24B" stroke-width="14" filter="url(#roughSoft)"></g>
+    </svg>
+    <div class="abs hand c-lima" style="left:730px;top:1288px;font-size:80px;transform:rotate(-4deg)">alivio</div>
+    <div class="abs hand c-hueso" style="left:742px;top:1020px;font-size:62px;line-height:.85;transform:rotate(-5deg)">y vuelve<br>más alto</div>
+    <div class="abs mono" style="left:0;right:0;top:1540px;text-align:center;font-size:24px;letter-spacing:.12em;text-transform:none;opacity:.85">@lic.andreagarzon</div>
+  </div>
+  <div class="overlay" id="paperTex"></div>
+  <div class="overlay grain" style="background-image:url(tex/grain2.png);display:block"></div>
+  <div class="overlay" id="vignette"></div>
+</div>
+<script>
+  // la misma curva del reel, en chiquito: sube, evitás (cae en lima), vuelve a subir más alto
+  const Y = v => 1450 - 36 * v, pts = [], drops = [];
+  const eps = [{ a: 150, p: 380, top: 8, from: 2, to: 1.4 }, { a: 470, p: 700, top: 10.5, from: 2.2, to: 1.8 }];
+  let x = 150;
+  eps.forEach((e, i) => {
+    for (; x <= e.p; x += 3) {
+      const u = (x - e.a) / (e.p - e.a);
+      const v = x < e.a ? e.from - .6 + .6 * (x - eps[i - 1].p) / (e.a - eps[i - 1].p) : e.from + (e.top - e.from) * Math.pow(Math.max(0, u), 1.6) + .15 * Math.sin(x / 9);
+      pts.push([x, Y(v)]);
+    }
+    pts.push([e.p + 6, Y(e.to)]);
+    drops.push([[e.p, Y(e.top)], [e.p + 6, Y(e.to)]]);
+    x = e.p + 9;
+  });
+  for (; x <= 900; x += 3) pts.push([x, Y(1.8 + .12 * Math.sin(x / 9))]);
+  const P = a => 'M' + a.map(p => p.map(n => n.toFixed(1)).join(',')).join(' L');
+  document.getElementById('cl').setAttribute('d', P(pts));
+  const g = document.getElementById('dr');
+  drops.forEach(d => { const p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', P(d)); g.appendChild(p); });
+  window.__ready = document.fonts.ready;
+</script>
+</body>
+</html>
