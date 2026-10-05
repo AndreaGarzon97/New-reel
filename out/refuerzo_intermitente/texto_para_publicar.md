@@ -28,6 +28,25 @@ Fuentes:
 
 #psicología #refuerzointermitente #vínculos #vínculossanos #violenciapsicológica #violenciadegénero #vínculotraumático #saludmental #psicologíaargentina #amorpropio
 
+## Descripción para TikTok
+
+(Texto plano, más corto y con 5 hashtags. Van sin tildes porque en TikTok son las versiones más usadas.)
+
+¿Por qué engancha más quien te quiere a veces?
+
+Se llama refuerzo intermitente: cuando el premio llega solo a veces, cuesta mucho más soltarlo. Pasa en el laboratorio, en las tragamonedas y también en los vínculos.
+
+En un vínculo sano, lo impredecible es la sorpresa. Cuando hay violencia, lo impredecible es cómo te van a tratar.
+
+Si vivís violencia en tu vínculo, no es tu culpa. Línea 144 (Argentina): gratuita, confidencial, las 24 horas.
+
+Guardalo para volver a verlo.
+
+Contenido informativo: no reemplaza una consulta profesional.
+Fuentes: Ferster y Skinner (1957), Walker (1979), Dutton y Painter (1981), Fiorillo, Tobler y Schultz (2003).
+
+#psicologia #refuerzointermitente #relaciones #violenciapsicologica #saludmental
+
 ## Texto alternativo (accesibilidad)
 
 Reel tipográfico sobre refuerzo intermitente: un globo de "escribiendo…" que aparece y desaparece, la definición, un gráfico de laboratorio de Skinner donde, sin premio, la paloma premiada a veces sigue picoteando, una tragamonedas que queda en corazón, corazón, cruz, una línea estable para los vínculos sanos, una línea que sube y cae cuando hay violencia, el ciclo de la violencia de Walker y el dato de la Línea 144.
