@@ -45,7 +45,7 @@ Guardalo para volver a verlo.
 Contenido informativo: no reemplaza una consulta profesional.
 Fuentes: Ferster y Skinner (1957), Walker (1979), Dutton y Painter (1981), Fiorillo, Tobler y Schultz (2003).
 
-#psicologia #refuerzointermitente #relaciones #violenciapsicologica #saludmental
+#psicologia #refuerzointermitente #relaciones #vinculossanos #saludmental
 
 ## Texto alternativo (accesibilidad)
 
